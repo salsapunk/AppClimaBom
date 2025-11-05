@@ -26,9 +26,9 @@ Importaremos a classe Nominatim, que possui o método geocode(), que nos retorna
 
 ## Wheater.py (OpenWheater API e biblioteca requests)
 
-OpenWheater é uma API...
+OpenWheater é uma API que tem diversos retornos em se tratando de clima baseado em uma latitude e longitude dada.
 
-Usaremos a biblioteca requests para fazer uma requisição...
+Usaremos a biblioteca requests para fazer uma requisição para a API OpenWheater com a latitude e a longitude coletada pelo geopy através do município, estado ou país fornecido pelo usuário.
 
 ### Variáveis
 
