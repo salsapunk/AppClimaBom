@@ -1,13 +1,15 @@
 import requests
 
 #pegas no menu
-lat = None
-lon = None
+lat = -9
+lon = -36
 
-#definidas aqui
-time = None
-API_key = None #da pra ver quando cria um usuario no openweather api
+api_key = 123
+#da pra ver quando cria um usuario no openweather api
 
-url = 'https://api.openweathermap.org/data/3.0/onecall/timemachine?lat={lat}&lon={lon}&dt={time}&appid={API_key}'
+#5 dias/ 3horas
+url = f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={api_key}'
 
-request = requests.get(url)
+#request = requests.get(url)
+
+print(url)
