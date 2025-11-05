@@ -3,11 +3,11 @@
 
 ## [ Levantamento de Requisitos ]
 
-#### 1. Introdução
+### 1. Introdução
 
 Este documento descreve os requisitos funcionais e não funcionais do “Aplicativo de Clima”, o objetivo do sistema é fornecer informações meteorológicas atualizadas e precisas, permitindo que os usuários consultem o clima atual, previsões e alertas de forma simples e intuitiva.
 
-#### 2. Descrição Geral
+### 2. Descrição Geral
 
 ##### 2.1. Usuários
 
@@ -18,7 +18,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 - Requer conexão com a internet para atualizações;
 - O uso de dados de geolocalização depende de permissão do usuário;
 
-##### 3. Requisitos Funcionais (RF)
+### 3. Requisitos Funcionais (RF)
 
 | Código | Descrição | Prioridade |
 |:---------------:|:---------------:|:---------------:|
@@ -28,7 +28,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 | **RF04** | O sistema deve emitir alertas meteorológicos. | Alta |
 | **RF05**  | O sistema deve permitir alternar entre °C e °F. | Baixa |
 
-##### 4. Requisitos Não Funcionais (RNF)
+### 4. Requisitos Não Funcionais (RNF)
 
 | Código | Descrição | Categoria | Prioridade |
 |:---:|:---:|:---:|:---:|
@@ -37,7 +37,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 | **RNF03** | Interface responsiva e intuitiva. | Usabilidade | Alta |
 | **RNF04** | Utilizar API meteorológica confiável  | Integração | Alta |
 
-##### 5. Backlog de Prioridades
+### 5. Backlog de Prioridades
 
 | Prioridade | Funcionalidade | Tipo |
 | --- |:---:|:---:|
@@ -45,7 +45,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 | 🟨 Média | Previsão 5 dias | RF/RNF |
 | 🟩 Baixa | Escolha °C/°F, histórico | RF |
 
-##### 6. Tecnologias
+### 6. Tecnologias
 
 **IDE**: Visual Studio Code
 **Controladores de versão**: Git e Github
@@ -54,7 +54,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 **Gerenciador de projetos**: Trello
 **Ferramentas de desing**: Figma
 
-##### 7. Critérios de Aceitação
+###[ [ 7. Critérios de Aceitação
 
 * O app exibe o clima atual em até 3 segundos;
 * A busca retorna resultados válidos;
