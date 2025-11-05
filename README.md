@@ -1,7 +1,7 @@
 
 # AppClimaBom 🌦️
 
-## [ [Levantamento de Requisitos] ]
+## [ Levantamento de Requisitos ]
 
 #### 1. Introdução
 
