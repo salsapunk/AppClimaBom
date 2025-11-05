@@ -9,11 +9,11 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 
 ### 2. Descrição Geral
 
-##### 2.1. Usuários
+#### 2.1. Usuários
 
 **Usuário comum:** consulta o clima e previsões.
 
-##### 2.2. Restrições
+#### 2.2. Restrições
 
 - Requer conexão com a internet para atualizações;
 - O uso de dados de geolocalização depende de permissão do usuário;
