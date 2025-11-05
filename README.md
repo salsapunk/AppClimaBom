@@ -64,7 +64,17 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 ## Estrutura de Dados
 
 
-### Geo.py (biblioteca geopy)
+### menu.py 
+
+#### Variáveis
+
+| Nome das variáveis |  Para que servem     |
+| ---------- | --------------------------------------------------------------------------------- |
+| estado | armazena o estado inserido como string pelo usuário |
+| municipio | armazena o município inserido como string pelo usuário |
+| juntos | armazena uma string que junta o estado e o município separando-os por um espaço |
+
+### geo.py (biblioteca geopy)
 
 Geopy é uma biblioteca que facilita a localização das coordenadas de os desenvolvedores do Python endereços, cidades, países e pontos de referência em todo o mundo usando terceiros geocódigos e outras fontes de dados.
 
@@ -86,7 +96,7 @@ Importaremos a classe Nominatim, que possui o método geocode(), que nos retorna
 | location.longitude | consegue a longitude do endereço armazenado em location                           |
 
 
-### Wheater.py (OpenWheater API e biblioteca requests)
+### wheater.py (OpenWheater API e biblioteca requests)
 
 OpenWheater é uma API que tem diversos retornos em se tratando de clima baseado em uma latitude e longitude dada.
 
