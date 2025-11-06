@@ -52,7 +52,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 **Bibliotecas Python**: requests, OpenWeather API, geopy e Streamlit
 **Gerenciador de dependências**: pip
 **Gerenciador de projetos**: Trello
-**Ferramentas de desing**: Figma
+**Ferramentas de desing**: Draw.io
 
 ###[ [ 7. Critérios de Aceitação
 
