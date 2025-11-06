@@ -61,6 +61,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 * O sistema exibe alerta quando há perigo climático.
 
 
+
 ## Estrutura de Dados
 
 
@@ -109,6 +110,8 @@ Usaremos a biblioteca requests para fazer uma requisição para a API OpenWheate
 | lat                 | armanena a latidude                       |
 | long                | armazena a longitude                      |
 | api_key             | armazena a API_Key do usuário OpenWheater |
+| request | faz a requisição para a API OpenWeather |
+| clima | dicionário que armazena as informações recebidas pela resquest |
 
 
 [**Trello**](https://trello.com/invite/b/69035d59701d4b56c044175d/ATTI4570caebf70c43845a78070ffe26c48f07B73633/quadro-principal)
