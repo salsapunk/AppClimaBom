@@ -116,14 +116,14 @@ Usaremos a biblioteca requests para fazer uma requisição para a API OpenWheate
 
 [**Trello**](https://trello.com/invite/b/69035d59701d4b56c044175d/ATTI4570caebf70c43845a78070ffe26c48f07B73633/quadro-principal)
 
-##### PO: Maria Eduarda
+##### PO: Lígia Andreza
 ##### Scrum Master: Maria Eduarda
 
 ##### Integrantes:
-- Bernardo James
-- João Pedro da Silva Queiroz
-- Lígia Andreza
-- Luiz Carlos
-- Maria Eduarda
+- Bernardo James (Implemenação)
+- João Pedro da Silva Queiroz (Implementação)
+- Lígia Andreza (PO e Analista de requisitos)
+- Luiz Carlos (Implementação)
+- Maria Eduarda (Scrum Master)
 
 ***Versão 1.0*** 
