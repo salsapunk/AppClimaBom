@@ -1,8 +1,9 @@
 import requests
+from geo.py import Localidade
 #importar as variaveis de ambiente .env
 
-lat = -9
-lon = -36
+lat = Localidade.latitude
+lon = Localidade.longitude
 API_KEY = "c2644944fba7092e7710bf42b3125bec"
 
 url = f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API_KEY}'
@@ -27,7 +28,6 @@ print(dicionario)
         #humidity
     #wind:
         #speed
-
 
 class Clima_localidade():
     def __init__(self):
