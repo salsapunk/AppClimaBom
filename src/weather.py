@@ -1,9 +1,33 @@
 import requests
 #importar as variaveis de ambiente .env
 
+lat = -9
+lon = -36
+API_KEY = "c2644944fba7092e7710bf42b3125bec"
+
 url = f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API_KEY}'
 
-request = requests.get(url)
+response = requests.get(url)
+
+if response:
+    print("Sucesso!")
+else:
+    raise Exception(f"Código de erro: {response.status_code}")
+
+dicionario = response.json()
+
+print(dicionario)
+
+#dt -> unix utc data e hora
+    #main:
+        #temp
+        #feels_like
+        #temp_min
+        #temp_max
+        #humidity
+    #wind:
+        #speed
+
 
 class Clima_localidade():
     def __init__(self):
