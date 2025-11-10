@@ -15,16 +15,17 @@ def menu():
 
     print('Bem-vindo(a) ao AppClimaBom!')
     print('O aplicaivo que mostra o clima na região que você quiser!')
+    print('\033[1;37m-=\033[0m' * 28 )
 
-    print('ADICIONAR ESTADO: ')
-    estado = str(input())
+    print('\033[1;32mADICIONAR ESTADO\033[0m: ')
+    estado = str(input()).strip().upper()
 
-    print('ADICIONAR MUNICÍPIO: ')
-    municipio = str(input())
+    print('\033[1;32mADICIONAR MUNICÍPIO\033[0m: ')
+    municipio = str(input()).strip().upper()
         
-    sleep(2)
+    sleep(1)
     
-    print('O ESTADO E O MUNICÍPIO SELECIONADOS, RESPECTIVAMENTE, SÃO: {} E {}.'.format(estado, municipio))
+    print('O "ESTADO" E O "MUNICÍPIO" SELECIONADOS, RESPECTIVAMENTE, SÃO: \033[1;33m{}\033[0m E \033[1;33m{}\033[0m.'.format(estado, municipio))
     juntos = estado + ' ' + municipio
     #geopy(juntos)
 menu()
