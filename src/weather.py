@@ -2,22 +2,24 @@ import requests
 from geo.py import Localidade
 #importar as variaveis de ambiente .env
 
-lat = Localidade.latitude
-lon = Localidade.longitude
-API_KEY = "c2644944fba7092e7710bf42b3125bec"
+class Resposta():
+    lat = Localidade.latitude
+    lon = Localidade.longitude
+    API_KEY = "c2644944fba7092e7710bf42b3125bec"
+    dicionario_clima = response.json
+    
+    def requisicao():
+        url = f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API_KEY}'
+        response = requests.get(url)
+        if response:
+            print("Sucesso!")
+        else:
+            raise Exception(f"Código de erro: {response.status_code}")
+        return response
 
-url = f'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API_KEY}'
-
-response = requests.get(url)
-
-if response:
-    print("Sucesso!")
-else:
-    raise Exception(f"Código de erro: {response.status_code}")
-
-dicionario = response.json()
-
-print(dicionario)
+    #DEBUG
+    def exibir_dicionario():
+        print(dicionario_clima)
 
 #dt -> unix utc data e hora
     #main:
