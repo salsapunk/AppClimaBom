@@ -54,7 +54,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 **Gerenciador de projetos**: Trello
 **Ferramentas de desing**: Draw.io
 
-###[ [ 7. Critérios de Aceitação
+### 7. Critérios de Aceitação
 
 * O app exibe o clima atual em até 3 segundos;
 * A busca retorna resultados válidos;
