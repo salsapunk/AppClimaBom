@@ -1,5 +1,7 @@
 import requests
-from geo import Localidade
+from geopy.geocoders import Nominatim
+
+geolocator = Nominatim(user_agent="AppClima")
 
 class Clima_localidade:
     def __init__(
@@ -24,7 +26,9 @@ class Clima_localidade:
 
 
 class Resposta:
-    def __init__(self):
+    def __init__(self, cidade, estado):
+        Localidade = geolocator.geocode(cidade, estado)
+
         self.lat = Localidade.latitude
         self.lon = Localidade.longitude
         self.API_KEY = "i2ovf15f9v0koyqra95q3eeff0idja79yghm6p0v"
