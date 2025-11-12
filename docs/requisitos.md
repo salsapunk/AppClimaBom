@@ -16,31 +16,30 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 - O uso de dados de geolocalização depende de permissão do usuário;
 
 ### 3. Requisitos Funcionais (RF)
-
-| Código | Descrição | Prioridade |
-|:---------------:|:---------------:|:---------------:|
-| **RF01** | O sistema deve permitir buscar o clima por cidade. | Alta |
-| **RF02** | O sistema deve apresentar previsão para até 5 dias | Média |
-| **RF03** | O sistema deve exibir dados como temperatura, umidade, vento e sensação térmica. | Alta |
-| **RF04** | O sistema deve emitir alertas meteorológicos. | Alta |
-| **RF05**  | O sistema deve permitir alternar entre °C e °F. | Baixa |
+| Código | Descrição | Prioridade | Status |
+| --- | --- | --- | --- |
+| **RF01** | O sistema deve permitir buscar o clima por cidade. | Alta |  Concluído |
+| **RF02** | O sistema deve exibir dados como temperatura, umidade, vento e sensação térmica. | Alta |  Concluído |
+| **RF03** | O sistema deve emitir alertas meteorológicos. | Alta | A fazer |
+| **RF04** | O sistema deve apresentar previsão para até 5 dias. | Média | A fazer |
+| **RF05** | O sistema deve permitir alternar entre °C e °F. | Baixa | A fazer |
 
 ### 4. Requisitos Não Funcionais (RNF)
 
-| Código | Descrição | Categoria | Prioridade |
-|:---:|:---:|:---:|:---:|
-| **RNF01** | Responder em até 3 segundos. | Desempenho | Alta |
-| **RNF02** | Alta disponibilidade (99%). | Confiabilidade | Alta |
-| **RNF03** | Interface responsiva e intuitiva. | Usabilidade | Alta |
-| **RNF04** | Utilizar API meteorológica confiável  | Integração | Alta |
+| Código | Descrição | Categoria | Prioridade | Status |
+| --- | --- | --- | --- | --- |
+| **RNF01** | Responder em até 3 segundos. | Desempenho | Alta |  Em andamento |
+| **RNF02** | Alta disponibilidade (99%). | Confiabilidade | Alta |  Concluído |
+| **RNF03** | Interface responsiva e intuitiva. | Usabilidade | Alta | Concluído |
+| **RNF04** | Utilizar API meteorológica confiável  | Integração | Alta | Concluído |
 
 ### 5. Backlog de Prioridades
 
-| Prioridade | Funcionalidade | Tipo |
-| --- |:---:|:---:|
-| 🟥 Alta | Clima atual, busca por cidade, alertas | RF |
-| 🟨 Média | Previsão 5 dias | RF/RNF |
-| 🟩 Baixa | Escolha °C/°F, histórico | RF |
+| Prioridade | Funcionalidade | Tipo | Status |
+| --- | --- | --- | --- |
+| 🟥 Alta | Clima atual, busca por cidade, alertas | RF |  Em andamento |
+| 🟨 Média | Previsão 5 dias | RF/RNF |  A fazer |
+| 🟩 Baixa | Escolha °C/°F, histórico | RF | A fazer |
 
 ### 6. Tecnologias
 
