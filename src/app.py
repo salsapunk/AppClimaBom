@@ -2,8 +2,11 @@ import streamlit as st
 
 ## Dados para exibição
 # (números são figurativos e serão alterados após a modificação destes dados)
+if 'pesquisa_feita' not in st.session_state:
+  st.session_state.pesquisa_feita = False
+
 if 'dia_0' not in st.session_state:
-  st.session_state['dia_0'] = {
+  st.session_state.dia_0 = {
     'temp': 28,
     'temp_min': 24,
     'temp_max': 29,
@@ -31,32 +34,35 @@ with row1[1]:
 
 with row1[2]:
   pesquisar = st.button('Buscar', on_click=pesquisarCidade)
+  if pesquisar:
+    st.session_state.pesquisa_feita = True
 
 # 2° Linha | Resultados:
-with st.container(key="resultados_dia_0", border=True):
-  row2 = st.columns(2)
+if st.session_state.pesquisa_feita == True:
+  with st.container(key="resultados_dia_0", border=True):
+    row2 = st.columns(2)
 
-  with row2[0]:
-    st.header(f'{st.session_state['dia_0']['temp']} °C')
-    st.markdown(f'''
-      **Parcial, nublado** <br/>
-      **MIN:** {st.session_state['dia_0']['temp_min']}° | 
-      **MAX:** {st.session_state['dia_0']['temp_max']}° <br/>
-      Sensação Térmica de {st.session_state['dia_0']['sensacao']}°
-    ''', True)
-  
-  with row2[1]:
-    st.subheader('Maceió, AL')
-    subrow = st.columns(2)
+    with row2[0]:
+      st.header(f'{st.session_state['dia_0']['temp']} °C')
+      st.markdown(f'''
+        **Parcial, nublado** <br/>
+        **MIN:** {st.session_state['dia_0']['temp_min']}° | 
+        **MAX:** {st.session_state['dia_0']['temp_max']}° <br/>
+        Sensação Térmica de {st.session_state['dia_0']['sensacao']}°
+      ''', True)
     
-    with subrow[0]:
-      st.markdown(f'''
-        #### Umidade:
-        {st.session_state['dia_0']['umidade']}%
-      ''')
+    with row2[1]:
+      st.subheader('Maceió, AL')
+      subrow = st.columns(2)
+      
+      with subrow[0]:
+        st.markdown(f'''
+          #### Umidade:
+          {st.session_state['dia_0']['umidade']}%
+        ''')
 
-    with subrow[1]:
-      st.markdown(f'''
-        #### Vento:
-        {st.session_state['dia_0']['vento_velo_kmph']} km/h
-    ''')
+      with subrow[1]:
+        st.markdown(f'''
+          #### Vento:
+          {st.session_state['dia_0']['vento_velo_kmph']} km/h
+      ''')
