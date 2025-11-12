@@ -52,7 +52,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 **Bibliotecas Python**: requests, OpenWeather API, geopy e Streamlit
 **Gerenciador de dependências**: pip
 **Gerenciador de projetos**: Trello
-**Ferramentas de desing**: Figma
+**Ferramentas de desing**: Draw.io
 
 ###[ [ 7. Critérios de Aceitação
 
@@ -111,19 +111,19 @@ Usaremos a biblioteca requests para fazer uma requisição para a API OpenWheate
 | long                | armazena a longitude                      |
 | api_key             | armazena a API_Key do usuário OpenWheater |
 | request | faz a requisição para a API OpenWeather |
-| clima | dicionário que armazena as informações recebidas pela resquest |
+| clima | dicionário que armazena as informações recebidas pela request |
 
 
 [**Trello**](https://trello.com/invite/b/69035d59701d4b56c044175d/ATTI4570caebf70c43845a78070ffe26c48f07B73633/quadro-principal)
 
-##### PO: Maria Eduarda
+##### PO: Lígia Andreza
 ##### Scrum Master: Maria Eduarda
 
 ##### Integrantes:
-- Bernardo James
-- João Pedro da Silva Queiroz
-- Lígia Andreza
-- Luiz Carlos
-- Maria Eduarda
+- Bernardo James (Implemenação)
+- João Pedro da Silva Queiroz (Implementação)
+- Lígia Andreza (PO e Analista de requisitos)
+- Luiz Carlos (Implementação)
+- Maria Eduarda (Scrum Master)
 
 ***Versão 1.0*** 
