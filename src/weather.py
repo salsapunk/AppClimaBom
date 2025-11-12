@@ -1,5 +1,5 @@
 import requests
-from geo.py import Localidade
+from geo import Localidade
 #importar as variaveis de ambiente .env
 
 lat = Localidade.latitude
