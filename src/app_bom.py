@@ -1,23 +1,6 @@
 import streamlit as st
-
-## Dados para exibição
-# (números são figurativos e serão alterados após a modificação destes dados)
-if 'pesquisa_feita' not in st.session_state:
-  st.session_state.pesquisa_feita = False
-
-if 'dia_0' not in st.session_state:
-  st.session_state.dia_0 = {
-    'temp': 28,
-    'temp_min': 24,
-    'temp_max': 29,
-    'sensacao': 31,
-    'umidade': 50, # NÃO SE PREOCUPAR NO MOMENTO; Será obtida posteriormente
-    'vento_velo_kmph': 19
-  }
-
-# Funções:
-def pesquisarCidade():
-  print(cidade, estado) # <- Substituir por interação com weather.py
+from weather import Resposta
+from geopy.geocoders import Nominatim 
 
 # Título da aplicação
 st.title("ClimaBom")
@@ -32,10 +15,35 @@ with row1[0]:
 with row1[1]:
   estado = st.text_input("Estado", placeholder="Ex.: São Paulo")
 
+# Funções:
+def pesquisarCidade():
+  r = Resposta(cidade, estado)
+  r.requisicao()
+
+  return r.d_clima
+
+if 'pesquisa_feita' not in st.session_state:
+  st.session_state.pesquisa_feita = False
+
 with row1[2]:
-  pesquisar = st.button('Buscar', on_click=pesquisarCidade)
+  p = None
+  pesquisar = st.button('Buscar')
+
   if pesquisar:
+    p = pesquisarCidade()
     st.session_state.pesquisa_feita = True
+
+## Dados para exibição
+# (números são figurativos e serão alterados após a modificação destes dados)
+if 'dia_0' not in st.session_state:
+  st.session_state.dia_0 = {
+    'temp': p.clima_dia1['temperatura'],
+    'temp_min': p.clima_dia1['temperatura mínima'],
+    'temp_max': p.clima_dia1['temperatura máxima'],
+    #'sensacao': 31,
+    #'umidade': 50, # NÃO SE PREOCUPAR NO MOMENTO; Será obtida posteriormente
+    'vento_velo_kmph': p.clima_dia1['velocidade do vento']
+  }
 
 # 2° Linha | Resultados:
 if st.session_state.pesquisa_feita == True:

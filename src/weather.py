@@ -27,7 +27,7 @@ class Clima_localidade:
 
 class Resposta:
     def __init__(self, cidade, estado):
-        Localidade = geolocator.geocode(cidade, estado)
+        Localidade = geolocator.geocode(f"{cidade} {estado}")
 
         self.lat = Localidade.latitude
         self.lon = Localidade.longitude
@@ -79,9 +79,8 @@ class Resposta:
             clima_dia[6],
         )
 
+# Exemplo de utilização:    
 
-r = Resposta()
-r.requisicao()
 print(r.resposta)
 print()
 print(r.d_clima.clima_atual)
