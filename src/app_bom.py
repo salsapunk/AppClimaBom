@@ -1,6 +1,5 @@
 import streamlit as st
 from weather import Resposta
-from geopy.geocoders import Nominatim 
 
 # Título da aplicação
 st.title("ClimaBom")
