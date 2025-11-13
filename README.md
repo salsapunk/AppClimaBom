@@ -20,30 +20,30 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 
 ### 3. Requisitos Funcionais (RF)
 
-| Código | Descrição | Prioridade |
-|:---------------:|:---------------:|:---------------:|
-| **RF01** | O sistema deve permitir buscar o clima por cidade. | Alta |
-| **RF02** | O sistema deve apresentar previsão para até 5 dias | Média |
-| **RF03** | O sistema deve exibir dados como temperatura, umidade, vento e sensação térmica. | Alta |
-| **RF04** | O sistema deve emitir alertas meteorológicos. | Alta |
-| **RF05**  | O sistema deve permitir alternar entre °C e °F. | Baixa |
+| Código | Descrição | Prioridade | Status |
+| --- | --- | --- | --- |
+| **RF01** | O sistema deve permitir buscar o clima por cidade. | Alta |  Concluído |
+| **RF02** | O sistema deve exibir dados como temperatura, umidade, vento e sensação térmica. | Alta |  Concluído |
+| **RF03** | O sistema deve emitir alertas meteorológicos. | Alta | A fazer |
+| **RF04** | O sistema deve apresentar previsão para até 5 dias. | Média | A fazer |
+| **RF05** | O sistema deve permitir alternar entre °C e °F. | Baixa | A fazer |
 
 ### 4. Requisitos Não Funcionais (RNF)
 
-| Código | Descrição | Categoria | Prioridade |
-|:---:|:---:|:---:|:---:|
-| **RNF01** | Responder em até 3 segundos. | Desempenho | Alta |
-| **RNF02** | Alta disponibilidade (99%). | Confiabilidade | Alta |
-| **RNF03** | Interface responsiva e intuitiva. | Usabilidade | Alta |
-| **RNF04** | Utilizar API meteorológica confiável  | Integração | Alta |
+| Código | Descrição | Categoria | Prioridade | Status |
+| --- | --- | --- | --- | --- |
+| **RNF01** | Responder em até 3 segundos. | Desempenho | Alta |  Em andamento |
+| **RNF02** | Alta disponibilidade (99%). | Confiabilidade | Alta |  Concluído |
+| **RNF03** | Interface responsiva e intuitiva. | Usabilidade | Alta | Concluído |
+| **RNF04** | Utilizar API meteorológica confiável  | Integração | Alta | Concluído |
 
 ### 5. Backlog de Prioridades
 
-| Prioridade | Funcionalidade | Tipo |
-| --- |:---:|:---:|
-| 🟥 Alta | Clima atual, busca por cidade, alertas | RF |
-| 🟨 Média | Previsão 5 dias | RF/RNF |
-| 🟩 Baixa | Escolha °C/°F, histórico | RF |
+| Prioridade | Funcionalidade | Tipo | Status |
+| --- | --- | --- | --- |
+| 🟥 Alta | Clima atual, busca por cidade, alertas | RF |  Em andamento |
+| 🟨 Média | Previsão 5 dias | RF/RNF |  A fazer |
+| 🟩 Baixa | Escolha °C/°F, histórico | RF | A fazer |
 
 ### 6. Tecnologias
 
@@ -59,59 +59,31 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 * O app exibe o clima atual em até 3 segundos;
 * A busca retorna resultados válidos;
 * O sistema exibe alerta quando há perigo climático.
+ 
 
+# Estrutura de Dados
 
+## Visão geral :
+As variáveis mais importantes para garantir os RFs são armazenados em dicionários, como nos atributos da classe Clima_localidade e d_clima na classe Resposta. Há o uso rápido de strings e floats, mas apenas o suficiente para garantir o funcionamento da aplicação.
 
-## Estrutura de Dados
+## Visão detalhada:
+### [app.py](http://app.py/)
 
+Armazena, principalmente, strings dadas por inputs do usuário, como *cidade* e *estado*, além de armazenar a variável st.session_state, que permite atualizar os valores exibidos na página.
 
-### menu.py 
+### [weather.py](http://weather.py/)
 
-#### Variáveis
+## C**lim**a_localidade
 
-| Nome das variáveis |  Para que servem     |
-| ---------- | --------------------------------------------------------------------------------- |
-| estado | armazena o estado inserido como string pelo usuário |
-| municipio | armazena o município inserido como string pelo usuário |
-| juntos | armazena uma string que junta o estado e o município separando-os por um espaço |
+Seus atributos armazenam dicionários com as informações selecionadas futuramente.
 
-### geo.py (biblioteca geopy)
+# Resposta
 
-Geopy é uma biblioteca que facilita a localização das coordenadas de os desenvolvedores do Python endereços, cidades, países e pontos de referência em todo o mundo usando terceiros geocódigos e outras fontes de dados.
-
-Importaremos a classe Nominatim, que possui o método geocode(), que nos retornará a localização pelo endereço passado como parâmetro.
-
-#### Funções
-
-|  Funções  |                                     Para que servem                                       |
-| --------- | ----------------------------------------------------------------------------------------- |
-| geocode() | Retorna a localização e informações sobre ela com base no endereço passado como parâmetro |
-
-#### Variáveis
-
-| Nome das variáveis |                              Para que servem                                      |
-| ------------------ | --------------------------------------------------------------------------------- |
-| geolocator         | objeto da classe Nominatim, que guarda métodos necessários para o programa        |
-| location           | armazena o retorno do método geocode(x), onde x é o endereço passado pelo usuário |
-| location.latitude  | consegue a latitude do endereço armazenado em location                            |
-| location.longitude | consegue a longitude do endereço armazenado em location                           |
-
-
-### wheater.py (OpenWheater API e biblioteca requests)
-
-OpenWheater é uma API que tem diversos retornos em se tratando de clima baseado em uma latitude e longitude dada.
-
-Usaremos a biblioteca requests para fazer uma requisição para a API OpenWheater com a latitude e a longitude coletada pelo geopy através do município, estado ou país fornecido pelo usuário.
-
-#### Variáveis
-
-| Nomes das variáveis |              Para que servem              |
-|-------------------- | ----------------------------------------- |
-| lat                 | armanena a latidude                       |
-| long                | armazena a longitude                      |
-| api_key             | armazena a API_Key do usuário OpenWheater |
-| request | faz a requisição para a API OpenWeather |
-| clima | dicionário que armazena as informações recebidas pela request |
+- *Localidade*: armazena o retorno de um método de classe
+- *lat e lon*: armazenam inteiros da latitude e longitude respectivamente
+- *API_KEY*: armazena uma string com a chave da API
+- *resposta*: armazenará a response da API em json
+- *d_clima*: armazenará um objeto da classe Clima_localidade
 
 
 [**Trello**](https://trello.com/invite/b/69035d59701d4b56c044175d/ATTI4570caebf70c43845a78070ffe26c48f07B73633/quadro-principal)
