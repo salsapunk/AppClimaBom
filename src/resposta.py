@@ -1,28 +1,8 @@
 import requests
 from geopy.geocoders import Nominatim
+from clima import Clima_localidade
 
 geolocator = Nominatim(user_agent="AppClima")
-
-class Clima_localidade:
-    def __init__(
-        self,
-        clima_atual,
-        clima_dia1,
-        clima_dia2,
-        clima_dia3,
-        clima_dia4,
-        clima_dia5,
-        clima_dia6,
-        clima_dia7,
-    ):
-        self.clima_atual = clima_atual
-        self.clima_dia1 = clima_dia1
-        self.clima_dia2 = clima_dia2
-        self.clima_dia3 = clima_dia3
-        self.clima_dia4 = clima_dia4
-        self.clima_dia5 = clima_dia5
-        self.clima_dia6 = clima_dia6
-        self.clima_dia7 = clima_dia7
 
 
 class Resposta:
@@ -79,8 +59,10 @@ class Resposta:
             clima_dia[6],
         )
 
-# Exemplo de utilização:    
 
+# Exemplo de utilização:
+r.Resposta()
+r.requisicao()
 print(r.resposta)
 print()
 print(r.d_clima.clima_atual)
