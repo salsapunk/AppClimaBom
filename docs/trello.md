@@ -5,6 +5,6 @@
 
 
 ## EXPLICAÇÃO BREVE:
- o nosso quadro visual é atualizado constantemente possuindo todas as sprints atuais,backlog e prioridades sendo  alinhadas conforme o nosso objetivo e foco no projeto.
+ o nosso quadro visual é atualizado constantemente possuindo todas as sprints atuais,backlog e prioridades sendo  alinhadas conforme o nosso objetivo,necessidades e foco no projeto.
 ## LINK:
-https://trello.com/invite/b/69035d59701d4b56c044175d/ATTI62544ed93939363a3bc7ef6ce9f0597156196100/quadro-principal
+[**TRELLO**](https://trello.com/invite/b/69035d59701d4b56c044175d/ATTI62544ed93939363a3bc7ef6ce9f0597156196100/quadro-principal)
