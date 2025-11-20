@@ -67,7 +67,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 As variáveis mais importantes para garantir os RFs são armazenados em dicionários, como nos atributos da classe Clima_localidade e d_clima na classe Resposta. Há o uso rápido de strings e floats, mas apenas o suficiente para garantir o funcionamento da aplicação.
 
 ## Visão detalhada:
-### [app.py](https://github.com/salsapunk/AppClimaBom/blob/main/src/app.py)
+### [app.py](https://github.com/salsapunk/AppClimaBom/blob/main/src/app_bom.py)
 
 Armazena, principalmente, strings dadas por inputs do usuário, como *cidade* e *estado*, além de armazenar a variável st.session_state, que permite atualizar os valores exibidos na página.
 
