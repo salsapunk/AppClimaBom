@@ -47,11 +47,16 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 
 ### 6. Tecnologias
 
-**IDE**: Visual Studio Code
+**IDE**: Visual Studio Code[
+
 **Controladores de versão**: Git e Github
+
 **Bibliotecas Python**: requests, OpenWeather API, geopy e Streamlit
+
 **Gerenciador de dependências**: pip
+
 **Gerenciador de projetos**: Trello
+
 **Ferramentas de desing**: Draw.io
 
 ### 7. Critérios de Aceitação
