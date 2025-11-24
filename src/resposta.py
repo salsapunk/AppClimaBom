@@ -1,9 +1,9 @@
-import requests
+import openmeteo_requests
 from geopy.geocoders import Nominatim
 from clima import Clima_localidade
 
 geolocator = Nominatim(user_agent="AppClima")
-
+openmeteo = openmeteo_requests.Client()
 
 class Resposta:
     def __init__(self, cidade, estado):
@@ -12,42 +12,33 @@ class Resposta:
         self.lat = Localidade.latitude
         self.lon = Localidade.longitude
         self.API_KEY = "i2ovf15f9v0koyqra95q3eeff0idja79yghm6p0v"
-        self.resposta = None
+        self.resposta_c = None
+        self.resposta_h = None
+        self.resposta_d = None
         self.d_clima = None
 
     def requisicao(self):
-        url = f"https://www.meteosource.com/api/v1/free/point?lat={self.lat}&lon={self.lon}&sections=current,daily,daily-parts,hourly,alerts&timezone=UTC&language=en&units=metric&key={self.API_KEY}"
-        response = requests.get(url)
-        if response:
+        url = "https://api.open-meteo.com/v1/forecast"
+        params = {
+            "latitude":  self.lat,
+            "longitude": self.lon,
+            "daily": ["temperature_2m_max", "temperature_2m_min", "apparent_temperature_max", "apparent_temperature_min", "precipitation_sum", "relative_humidity_2m_mean"],
+	        "hourly": ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "rain", "wind_speed_10m", "precipitation_probability"],
+	        "current": ["temperature_2m", "relative_humidity_2m", "apparent_temperature", "wind_speed_10m", "precipitation"],
+        }
+        responses = openmeteo.weather_api(url, params = params)
+        if responses:
             print("Sucesso!")
         else:
             raise Exception(f"Código de erro: {response.status_code}")
-        self.resposta = response.json()
+        response = responses[0]
+        self.resposta_c = response.Current()
+        self.resposta_h = response.Hourly()
+        self.resposta_d = response.Daily()
         self.separar_respostas()
 
     def separar_respostas(self):
-        c = self.resposta["current"]
-        dia_atual = {
-            "icone": c["icon"],
-            "resumo": c["summary"],
-            "temperatura": c["temperature"],
-            "velocidade do vento": c["wind"]["speed"],
-            "direção do vento": c["wind"]["dir"],
-        }
-        clima_dia = []
-        for i in range(7):
-            hdd = self.resposta["daily"]["data"][i]
-            dia = {
-                "data e hora": hdd["day"],
-                "clima": hdd["weather"],
-                "icone": hdd["icon"],
-                "temperatura": hdd["all_day"]["temperature"],
-                "temperatura mínima": hdd["all_day"]["temperature_min"],
-                "temperatura máxima": hdd["all_day"]["temperature_max"],
-                "velocidade do vento": hdd["all_day"]["wind"]["speed"],
-                "direção do vento": hdd["all_day"]["wind"]["dir"],
-            }
-            clima_dia.append(dia)
+        #funções p separar em dicionarios
         self.d_clima = Clima_localidade(
             dia_atual,
             clima_dia[0],
@@ -61,22 +52,22 @@ class Resposta:
 
 
 # Exemplo de utilização:
-r.Resposta()
+r = Resposta("Maceió", "AL")
 r.requisicao()
-print(r.resposta)
-print()
-print(r.d_clima.clima_atual)
-print()
-print(r.d_clima.clima_dia1)
-print()
-print(r.d_clima.clima_dia2)
-print()
-print(r.d_clima.clima_dia3)
-print()
-print(r.d_clima.clima_dia4)
-print()
-print(r.d_clima.clima_dia5)
-print()
-print(r.d_clima.clima_dia6)
-print()
-print(r.d_clima.clima_dia7)
+#print(r.resposta)
+#print()
+#print(r.d_clima.clima_atual)
+#print()
+#print(r.d_clima.clima_dia1)
+#print()
+#print(r.d_clima.clima_dia2)
+#print()
+#print(r.d_clima.clima_dia3)
+#print()
+#print(r.d_clima.clima_dia4)
+#print()
+#print(r.d_clima.clima_dia5)
+#print()
+#print(r.d_clima.clima_dia6)
+#print()
+#print(r.d_clima.clima_dia7)
