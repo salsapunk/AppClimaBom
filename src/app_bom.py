@@ -15,16 +15,8 @@ st.title("AppClimaBom")
 if 'pesquisa_feita' not in st.session_state:
   st.session_state.pesquisa_feita = False
 
-if 'dia_0' not in st.session_state:
-  st.session_state.dia_0 = {
-    'temp': None,
-    'temp_min': None,
-    'temp_max': None,
-    'sensacao': None,
-    'umidade': None,
-    'vento_velo': None,
-    'vento_dir': None
-  }
+if 'clima_semana' not in st.session_state:
+  st.session_state.clima_semana = []
 
 # Definindo linhas da aplicação:
 row1 = st.columns([3, 2.5, 1], vertical_alignment='bottom')
@@ -42,31 +34,35 @@ with row1[2]:
 
   if pesquisar:
     p = pesquisarCidade()
-    st.session_state.dia_0 = {
-      'temp': p.clima_dia1['temperatura'],
-      'temp_min': p.clima_dia1['temperatura mínima'],
-      'temp_max': p.clima_dia1['temperatura máxima'],
-      'sensacao': "N/A",
-      'umidade': "N/A", # NÃO SE PREOCUPAR NO MOMENTO; Será obtida posteriormente
-      'vento_velo': "{:.3f}".format(
-        p.clima_dia1['velocidade do vento'] / 3.6
-      ),
-      'vento_dir': p.clima_dia1['direção do vento']
-    }
+    arr_semana = list(vars(p).values())[1:] # A tag [1:] é para excluir a redundância da classe Clima_localidade ("clima_atual" & "clima_dia1")
+
+    for dia in arr_semana:
+      st.session_state.clima_semana.append({
+        'temp': dia['temperatura'],
+        'temp_min': dia['temperatura mínima'],
+        'temp_max': dia['temperatura máxima'],
+        'sensacao': "N/A",
+        'umidade': "N/A", # NÃO SE PREOCUPAR NO MOMENTO; Será obtida posteriormente
+        'vento_velo': "{:.3f}".format(
+          dia['velocidade do vento'] / 3.6
+        ),
+        'vento_dir': dia['direção do vento']
+      })
     st.session_state.pesquisa_feita = True
 
 # 2° Linha | Resultados:
 if st.session_state.pesquisa_feita == True:
   with st.container(key="resultados_dia_0", border=True):
+    clima_dia0 = st.session_state['clima_semana'][0]
     row2 = st.columns(2)
 
     with row2[0]:
-      st.header(f'{st.session_state['dia_0']['temp']} °C')
+      st.header(f'{clima_dia0['temp']} °C')
       st.markdown(f'''
         **Parcial, nublado** <br/>
-        **MIN:** {st.session_state['dia_0']['temp_min']}° | 
-        **MAX:** {st.session_state['dia_0']['temp_max']}° <br/>
-        Sensação Térmica de {st.session_state['dia_0']['sensacao']}°
+        **MIN:** {clima_dia0['temp_min']}° | 
+        **MAX:** {clima_dia0['temp_max']}° <br/>
+        Sensação Térmica de {clima_dia0['sensacao']}°
       ''', True)
     
     with row2[1]:
@@ -76,12 +72,12 @@ if st.session_state.pesquisa_feita == True:
       with subrow[0]:
         st.markdown(f'''
           #### Vento:
-          {st.session_state['dia_0']['vento_velo']} m/s <br/>
-          Sentido {st.session_state['dia_0']['vento_dir']}
+          {clima_dia0['vento_velo']} m/s <br/>
+          Sentido {clima_dia0['vento_dir']}
       ''', True)
         
       with subrow[1]:
         st.markdown(f'''
           #### Umidade:
-          {st.session_state['dia_0']['umidade']}%
+          {clima_dia0['umidade']}%
         ''')
