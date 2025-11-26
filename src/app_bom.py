@@ -38,6 +38,7 @@ with row1[2]:
     semana = res.clima_dia
     medida = res.medida
 
+    st.session_state.clima_semana = []
     for dia in semana:
       info_dia = {
         'temp': dia['Temperatura'],
@@ -51,7 +52,6 @@ with row1[2]:
       }
       st.session_state.clima_semana.append(info_dia)
     
-    print(st.session_state.clima_semana)
     st.session_state.pesquisa_feita = True
 
 # 2° Linha | Resultados:
@@ -86,25 +86,24 @@ if st.session_state.pesquisa_feita == True:
           {clima_dia0['umidade']}%
         ''')
 
-  for idx_dia, dia in enumerate(st.session_state['clima_semana']):
+  for idx_dia, dia in enumerate(st.session_state.clima_semana):
     with st.container(key=f"resultados_dia_{idx_dia}", border=True):
       col1, col2 = st.columns(2, vertical_alignment='center')
       
-      # Obtendo os dias da semana subsequentes à hoje:
       dias_semana = [
         'Segunda-feira', 'Terça-feira', 'Quarta-feira', 
         'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo',
       ] # Ordem baseada na semana de trabalho americana; Semana começa na Segunda-feira.
       idx_hoje = datetime.date.today().weekday()
-      dias_ordenados = [dias_semana[(idx_hoje + i) % 7] for i in range(7)]
+      dias_ordenados = dias_semana[idx_hoje:] + dias_semana[:idx_hoje]
 
       with col1:
-        dia_exibido = dias_ordenados[idx_dia]
+        dia_exibido = dias_ordenados[(idx_dia + 1) % 7 if idx_dia >= 7 else idx_dia]
         if idx_dia == 0: dia_exibido = "Hoje"
         
         st.markdown(f"""
           <h4>{dia_exibido}:</h4>
-          <p>Dia {idx_dia}</p> <!-- No futuro substituir por data (ex.: 1 de abril) -->
+          <p>Dia {idx_dia + 1}</p> <!-- No futuro substituir por data (ex.: 1 de abril) -->
         """, True)
       
       with col2:
