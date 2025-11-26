@@ -87,18 +87,14 @@ class Resposta:
 
 
 # Exemplo de utilização:
-# r = Resposta("Maceió", "AL")
-# r.requisicao()
-# print(r.d_clima.clima_dia1)
-# print()
-# print(r.d_clima.clima_dia2)
-# print()
-# print(r.d_clima.clima_dia3)
-# print()
-# print(r.d_clima.clima_dia4)
-# print()
-# print(r.d_clima.clima_dia5)
-# print()
-# print(r.d_clima.clima_dia6)
-# print()
-# print(r.d_clima.clima_dia7)
+r = Resposta("Maceió", "AL")
+r.requisicao()
+for i in range(7):
+    print(r.d_clima.clima_dia[i])
+    print()
+
+r.d_clima.converter_temp("Kelvin")
+
+for i in range(7):
+    print(r.d_clima.clima_dia[i])
+    print()
