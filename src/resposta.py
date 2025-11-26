@@ -75,7 +75,7 @@ class Resposta:
                     "Sensação térmica": diario["apparent_temperature_mean"][i],
                     "Humidade": diario["relative_humidity_2m_mean"][i],
                     "Precipitação": diario["precipitation_sum"][i],
-                    "Velocidade do vento": diario["wind_speed_10m_mean"][i],
+                    "Velocidade do vento": diario["wind_speed_10m_mean"][i]
                 }
             )
 
