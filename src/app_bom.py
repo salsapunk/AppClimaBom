@@ -1,12 +1,12 @@
 import datetime
 import streamlit as st
-from weather import Resposta
+from resposta import Resposta
 
 # Funções:
 def pesquisarCidade():
   r = Resposta(cidade, estado)
   r.requisicao()
-
+  
   return r.d_clima
 
 # Título da aplicação
@@ -30,25 +30,28 @@ with row1[1]:
   estado = st.text_input("Estado", placeholder="Ex.: São Paulo")
 
 with row1[2]:
-  p = None
+  res = None
   pesquisar = st.button('Buscar')
 
   if pesquisar:
-    p = pesquisarCidade()
-    arr_semana = list(vars(p).values())[1:] # A tag [1:] é para excluir a redundância da classe Clima_localidade ("clima_atual" & "clima_dia1")
+    res = pesquisarCidade()
+    semana = res.clima_dia
+    medida = res.medida
 
-    for clima_dia in arr_semana:
-      st.session_state.clima_semana.append({
-        'temp': clima_dia['temperatura'],
-        'temp_min': clima_dia['temperatura mínima'],
-        'temp_max': clima_dia['temperatura máxima'],
-        'sensacao': "N/A",
-        'umidade': "N/A", # NÃO SE PREOCUPAR NO MOMENTO; Será obtida posteriormente
-        'vento_velo': "{:.3f}".format(
-          clima_dia['velocidade do vento'] / 3.6
-        ),
-        'vento_dir': clima_dia['direção do vento']
-      })
+    for dia in semana:
+      info_dia = {
+        'temp': dia['Temperatura'],
+        'temp_min': dia['Temperatura_min'],
+        'temp_max': dia['Temperatura_max'],
+        'sensacao': dia["Sensação térmica"],
+        'umidade': dia["Humidade"],
+        'vento_velo': dia["Velocidade do vento"],
+        'precipitacao': dia["Precipitação"], # Não utilizada no momento
+        'vento_dir': "N/A"
+      }
+      st.session_state.clima_semana.append(info_dia)
+    
+    print(st.session_state.clima_semana)
     st.session_state.pesquisa_feita = True
 
 # 2° Linha | Resultados:
@@ -83,7 +86,7 @@ if st.session_state.pesquisa_feita == True:
           {clima_dia0['umidade']}%
         ''')
 
-  for idx_dia, clima_dia in enumerate(st.session_state['clima_semana']):
+  for idx_dia, dia in enumerate(st.session_state['clima_semana']):
     with st.container(key=f"resultados_dia_{idx_dia}", border=True):
       col1, col2 = st.columns(2, vertical_alignment='center')
       
@@ -107,7 +110,7 @@ if st.session_state.pesquisa_feita == True:
       with col2:
         st.markdown(f"""
           <p style='text-align: right;'>
-            <strong style='font-size: 20px;'>{clima_dia['temp']} °C</strong> <br/>
-            {clima_dia['temp_min']}° | {clima_dia['temp_max']}°
+            <strong style='font-size: 20px;'>{dia['temp']} °C</strong> <br/>
+            {dia['temp_min']}° | {dia['temp_max']}°
           </p>
         """, True)

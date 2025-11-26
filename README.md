@@ -47,14 +47,19 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 
 ### 6. Tecnologias
 
-**IDE**: Visual Studio Code
+**IDE**: Visual Studio Code[
+
 **Controladores de versão**: Git e Github
+
 **Bibliotecas Python**: requests, OpenWeather API, geopy e Streamlit
+
 **Gerenciador de dependências**: pip
+
 **Gerenciador de projetos**: Trello
+
 **Ferramentas de desing**: Draw.io
 
-###[ [ 7. Critérios de Aceitação
+### 7. Critérios de Aceitação
 
 * O app exibe o clima atual em até 3 segundos;
 * A busca retorna resultados válidos;
@@ -67,17 +72,17 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 As variáveis mais importantes para garantir os RFs são armazenados em dicionários, como nos atributos da classe Clima_localidade e d_clima na classe Resposta. Há o uso rápido de strings e floats, mas apenas o suficiente para garantir o funcionamento da aplicação.
 
 ## Visão detalhada:
-### [app.py](http://app.py/)
+### [app.py](https://github.com/salsapunk/AppClimaBom/blob/main/src/app_bom.py)
 
 Armazena, principalmente, strings dadas por inputs do usuário, como *cidade* e *estado*, além de armazenar a variável st.session_state, que permite atualizar os valores exibidos na página.
 
-### [weather.py](http://weather.py/)
+### [weather.py](https://github.com/salsapunk/AppClimaBom/blob/main/src/weather.py)
 
-## C**lim**a_localidade
+## **Clima_localidade**
 
 Seus atributos armazenam dicionários com as informações selecionadas futuramente.
 
-# Resposta
+# **Resposta**
 
 - *Localidade*: armazena o retorno de um método de classe
 - *lat e lon*: armazenam inteiros da latitude e longitude respectivamente
