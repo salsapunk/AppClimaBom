@@ -90,6 +90,11 @@ Seus atributos armazenam dicionários com as informações selecionadas futurame
 - *API_KEY*: armazena uma string com a chave da API
 - *resposta*: armazenará a response da API em json
 - *d_clima*: armazenará um objeto da classe Clima_localidade
+- *dados que são retornados pela API e o que o app oferece de informação:*
+    - temperatura atual, máxima e mínima;
+    - sensação térmica;
+    - humidade relativa do ar;
+    - velocidade do vento e a precipitação total;
 
 [**Trello**](https://trello.com/invite/b/69035d59701d4b56c044175d/ATTI4570caebf70c43845a78070ffe26c48f07B73633/quadro-principal)
 
