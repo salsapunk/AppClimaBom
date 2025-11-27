@@ -4,7 +4,7 @@
 
 ## "O que foi testado"?
 
->De modo particular, foram testadas as seguintes funcionalidades: **"o retorno das informações fornecidas pela API"**, **"a separação em dias"** e a **"converção de medidas de temperatura"**.
+>De modo particular, foram testadas as seguintes funcionalidades: **"o retorno das informações fornecidas pela API"**, **"a separação em dias"** e a **"conversão de medidas de temperatura"**.
 
 #### Observe a seguir:
 
