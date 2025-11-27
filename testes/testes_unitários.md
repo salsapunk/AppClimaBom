@@ -38,7 +38,7 @@
 | Converção de medidas de temperatura | Sucesso |
 
 
->Considerações: "Enchendo linguiça"
+>Considerações: "Tudo funcionado conforme planejado"
 
 ## Problemas detectados:
 
@@ -50,8 +50,8 @@
 | Vazio | Vazio |
 | Vazio | Vazio |
 
->Considerações: "Enchendo linguiça"
+>Considerações: "Nenhum problema detectado"
 
 ## O que ainda precisa de testes:
 
->Considerações: "Enchendo linguiça"
+>Considerações: "Nada"

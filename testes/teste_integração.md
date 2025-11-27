@@ -22,39 +22,35 @@
 
 
 ## Resultados:
-| Código_API | Parte da interface | Status |
-| --- | --- | --- |
-| `print('teste')` | Temperatura | Sucesso |
-| `print('teste')` | Umidade | Sucesso |
-| `print('teste')` | Estado | Sucesso |
-| `print('teste')` | Cidade | Sucesso |
-| `print('teste')` | Vento | Sucesso |
+| Parte da interface | Status |
+| --- | --- |
+| Temperatura | Sucesso |
+| Umidade | Sucesso |
+| Estado | Sucesso |
+| Cidade | Sucesso |
+| Vento | Sucesso |
 
 - **Considerações**:
->"Texto para ocupar espaço".
+>"Tudo funcionando conforme planejado".
 
 
 
 
 ## Problemas detectados:
-| Tipo | Descrição | Gravidade |
-| --- | --- | --- |
-| Saúde | Vô nem falar nada | Gravíssimo |
-| Educação | Vô nem falar nada | Gravíssimo |
-| Pobreza | Vô nem falar nada | Gravíssimo |
-| Corrupção | Vô nem falar nada | Gravíssimo |
-| Dívidas | Vô nem falar nada | Gravíssimo |
+| Tipo | Gravidade |
+| --- | --- |
+| Vazio | Vazio|
+| Vazio  | Vazio |
+| Vazio | Vazio |
+| Vazio | Vazio |
+| Vazio |  Vazio |
 
 - **Considerações**:
->"texto para ocupar espaço"
+>"Nenhum problema foi"
 
 
 
 
 ## O que ainda precisa de testes:
 
-````python
-print('Os códigos que ainda precisam de testes ficarão aqui')
-
-````
-
+>"Nada"
