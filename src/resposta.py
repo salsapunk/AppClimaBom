@@ -1,8 +1,11 @@
 import requests
 from geopy.geocoders import Nominatim
+
+# from dateutil import parser as dateparser
 from clima import Clima_localidade
 
 geolocator = Nominatim(user_agent="AppClima")
+# openmeteo = openmeteo_requests.Client()
 
 
 class Resposta:
@@ -11,45 +14,72 @@ class Resposta:
 
         self.lat = Localidade.latitude
         self.lon = Localidade.longitude
-        self.API_KEY = "i2ovf15f9v0koyqra95q3eeff0idja79yghm6p0v"
-        self.resposta = None
+        # self.API_KEY = "i2ovf15f9v0koyqra95q3eeff0idja79yghm6p0v"
+        self.data = None
         self.d_clima = None
 
     def requisicao(self):
-        url = f"https://www.meteosource.com/api/v1/free/point?lat={self.lat}&lon={self.lon}&sections=current,daily,daily-parts,hourly,alerts&timezone=UTC&language=en&units=metric&key={self.API_KEY}"
-        response = requests.get(url)
-        if response:
-            print("Sucesso!")
-        else:
-            raise Exception(f"Código de erro: {response.status_code}")
-        self.resposta = response.json()
+        url = "https://api.open-meteo.com/v1/forecast"
+        params = {
+            "latitude": self.lat,
+            "longitude": self.lon,
+            #            "hourly": ",".join(
+            #                [
+            #                    "temperature_2m",
+            #                    "relative_humidity_2m",
+            #                    "apparent_temperature",
+            #                    "precipitation_probability",
+            #                    "wind_speed_10m",
+            #                ]
+            #            ),
+            "daily": ",".join(
+                [
+                    "apparent_temperature_mean",
+                    "temperature_2m_mean",
+                    "temperature_2m_min",
+                    "temperature_2m_max", 
+                    "relative_humidity_2m_mean",
+                    "wind_speed_10m_mean",
+                    "precipitation_sum",
+                ]
+            ),
+            "timezone": "auto",
+        }
+
+        try:
+            resp = requests.get(url, params=params, timeout=10)
+        except requests.RequestsException as e:
+            raise RuntimeError(f"Erro na requisição da API Open-meteo: {e}")
+
+        self.data = resp.json()
         self.separar_respostas()
 
     def separar_respostas(self):
-        c = self.resposta["current"]
-        dia_atual = {
-            "icone": c["icon"],
-            "resumo": c["summary"],
-            "temperatura": c["temperature"],
-            "velocidade do vento": c["wind"]["speed"],
-            "direção do vento": c["wind"]["dir"],
-        }
+        if not self.data:
+            raise RuntimeError("Nenhum dado disponível para separar")
+
+        # hora = self.data.get("hourly", {})
+        diario = self.data.get("daily", {})
+
+        print(diario)
+
         clima_dia = []
+
         for i in range(7):
-            hdd = self.resposta["daily"]["data"][i]
-            dia = {
-                "data e hora": hdd["day"],
-                "clima": hdd["weather"],
-                "icone": hdd["icon"],
-                "temperatura": hdd["all_day"]["temperature"],
-                "temperatura mínima": hdd["all_day"]["temperature_min"],
-                "temperatura máxima": hdd["all_day"]["temperature_max"],
-                "velocidade do vento": hdd["all_day"]["wind"]["speed"],
-                "direção do vento": hdd["all_day"]["wind"]["dir"],
-            }
-            clima_dia.append(dia)
+            clima_dia.append(
+                {
+                    "Dia": diario["time"][i],
+                    "Temperatura": diario["temperature_2m_mean"][i],
+                    "Temperatura_min": diario["temperature_2m_min"][i],
+                    "Temperatura_max": diario["temperature_2m_max"][i], 
+                    "Sensação térmica": diario["apparent_temperature_mean"][i],
+                    "Humidade": diario["relative_humidity_2m_mean"][i],
+                    "Precipitação": diario["precipitation_sum"][i],
+                    "Velocidade do vento": diario["wind_speed_10m_mean"][i]
+                }
+            )
+
         self.d_clima = Clima_localidade(
-            dia_atual,
             clima_dia[0],
             clima_dia[1],
             clima_dia[2],
@@ -61,22 +91,14 @@ class Resposta:
 
 
 # Exemplo de utilização:
-r.Resposta()
-r.requisicao()
-print(r.resposta)
-print()
-print(r.d_clima.clima_atual)
-print()
-print(r.d_clima.clima_dia1)
-print()
-print(r.d_clima.clima_dia2)
-print()
-print(r.d_clima.clima_dia3)
-print()
-print(r.d_clima.clima_dia4)
-print()
-print(r.d_clima.clima_dia5)
-print()
-print(r.d_clima.clima_dia6)
-print()
-print(r.d_clima.clima_dia7)
+# r = Resposta("Maceió", "AL")
+# r.requisicao()
+# for i in range(7):
+#     print(r.d_clima.clima_dia[i])
+#     print()
+
+# r.d_clima.converter_temp("Kelvin")
+
+# for i in range(7):
+#     print(r.d_clima.clima_dia[i])
+#     print()
