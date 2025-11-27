@@ -51,13 +51,13 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 
 **Controladores de versão**: Git e Github
 
-**Bibliotecas Python**: requests, geopy e Streamlit, open-meteo
+**Bibliotecas Python**: requests, geopy, Streamlit e open-meteo (API)
 
 **Gerenciador de dependências**: pip
 
 **Gerenciador de projetos**: Trello
 
-**Ferramentas de design**: [Draw.io](http://draw.io/),Figma
+**Ferramentas de design**: [Draw.io](http://draw.io/), Figma
 
 ### 7. Critérios de Aceitação
 
