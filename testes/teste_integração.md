@@ -7,10 +7,10 @@
 
 #### Observe a seguir:
 - **API Open-Meteo**
-```python
-print('funcionalidades ou imagens da API ficarão aqui')
 
-```
+<video width='500px' height='300px' controls>
+    <source src='teste_de_integração.mp4' type='Video/mp4'>
+</video>
 
 
 - **Interface Streamlit**
