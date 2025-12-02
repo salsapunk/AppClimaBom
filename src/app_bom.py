@@ -2,6 +2,18 @@ import datetime
 import streamlit as st
 from resposta import Resposta
 
+
+with open("src/style.css") as f:
+  st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+
+
+# Customizações visuais da interface:
+
+
+
+
 # Funções:
 def pesquisarCidade():
   r = Resposta(cidade, estado)
