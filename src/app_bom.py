@@ -18,6 +18,41 @@ def pesquisarCidade():
       'data': None
     }
 
+def atualizarClimaSemana():
+  semana = st.session_state.resposta_api['data'].clima_dia
+  st.session_state.clima_semana = []
+
+  for dia in semana:
+    info_dia = {
+      'temp': dia['Temperatura'],
+      'temp_min': dia['Temperatura_min'],
+      'temp_max': dia['Temperatura_max'],
+      'sensacao': dia["Sensação térmica"],
+      'umidade': dia["Humidade"],
+      'vento_velo': dia["Velocidade do vento"],
+      'precipitacao': dia["Precipitação"], # Não utilizada no momento
+      'vento_dir': "N/A"
+    }
+    st.session_state.clima_semana.append(info_dia)
+
+def alterarMedida():
+  numMedidaAtual = st.session_state.select_unidade_medida 
+  medidaAtual: int # 0 = Celsius, 1 = Fahrenheit, 2 = Kelvin
+  match numMedidaAtual:
+    case 0:
+      medidaAtual = 'Celsius'
+    case 1:
+      medidaAtual = 'Fahrenheit'
+    case 2:
+      medidaAtual = 'Kelvin'
+    case _:
+      medidaAtual = 'Celsius'
+
+  # Alteração:
+  st.session_state.resposta_api['data'].converter_temp(medidaAtual)
+  st.session_state.resposta_api['data'].medida = medidaAtual
+  atualizarClimaSemana()
+
 # Título da aplicação
 st.title("AppClimaBom")
 
@@ -52,38 +87,7 @@ with st.form("pesquisa"):
       st.session_state.pesquisa_feita = True
 
       if st.session_state.resposta_api['success']:
-        semana = st.session_state.resposta_api['data'].clima_dia
-        st.session_state.clima_semana = []
-
-        for dia in semana:
-          info_dia = {
-            'temp': dia['Temperatura'],
-            'temp_min': dia['Temperatura_min'],
-            'temp_max': dia['Temperatura_max'],
-            'sensacao': dia["Sensação térmica"],
-            'umidade': dia["Humidade"],
-            'vento_velo': dia["Velocidade do vento"],
-            'precipitacao': dia["Precipitação"], # Não utilizada no momento
-            'vento_dir': "N/A"
-          }
-          st.session_state.clima_semana.append(info_dia)
-
-def alterarMedida():
-  numMedidaAtual = st.session_state.select_unidade_medida 
-  medidaAtual: int # 0 = Celsius, 1 = Fahrenheit, 2 = Kelvin
-  match numMedidaAtual:
-    case 0:
-      medidaAtual = 'Celsius'
-    case 1:
-      medidaAtual = 'Fahrenheit'
-    case 2:
-      medidaAtual = 'Kelvin'
-    case _:
-      medidaAtual = 'Celsius'
-
-  # Alteração:
-  st.session_state.resposta_api['data'].converter_temp(medidaAtual)
-  st.session_state.resposta_api['data'].medida = medidaAtual
+        atualizarClimaSemana()
 
 # 2° Linha | Resultados:
 if (
