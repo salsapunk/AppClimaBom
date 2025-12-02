@@ -4,10 +4,19 @@ from resposta import Resposta
 
 # Funções:
 def pesquisarCidade():
-  r = Resposta(cidade, estado)
-  r.requisicao()
-  
-  return r.d_clima
+  try:
+    r = Resposta(cidade, estado)
+    r.requisicao()
+    
+    return {
+      'success': True,
+      'data': r.d_clima
+    }
+  except:
+    return {
+      'success': False,
+      'data': None
+    }
 
 # Título da aplicação
 st.title("AppClimaBom")
@@ -36,27 +45,28 @@ with st.form("pesquisa"):
 
     if pesquisar:
       res = pesquisarCidade()
-      semana = res.clima_dia
-      medida = res.medida
-
-      st.session_state.clima_semana = []
-      for dia in semana:
-        info_dia = {
-          'temp': dia['Temperatura'],
-          'temp_min': dia['Temperatura_min'],
-          'temp_max': dia['Temperatura_max'],
-          'sensacao': dia["Sensação térmica"],
-          'umidade': dia["Humidade"],
-          'vento_velo': dia["Velocidade do vento"],
-          'precipitacao': dia["Precipitação"], # Não utilizada no momento
-          'vento_dir': "N/A"
-        }
-        st.session_state.clima_semana.append(info_dia)
-      
       st.session_state.pesquisa_feita = True
 
+      if res['success']:
+        semana = res['data'].clima_dia
+        medida = res['data'].medida
+        st.session_state.clima_semana = []
+
+        for dia in semana:
+          info_dia = {
+            'temp': dia['Temperatura'],
+            'temp_min': dia['Temperatura_min'],
+            'temp_max': dia['Temperatura_max'],
+            'sensacao': dia["Sensação térmica"],
+            'umidade': dia["Humidade"],
+            'vento_velo': dia["Velocidade do vento"],
+            'precipitacao': dia["Precipitação"], # Não utilizada no momento
+            'vento_dir': "N/A"
+          }
+          st.session_state.clima_semana.append(info_dia)
+
 # 2° Linha | Resultados:
-if st.session_state.pesquisa_feita == True:
+if st.session_state.pesquisa_feita == True and res['success']:
   with st.container(key="resultados_dia_atual", border=True):
     clima_dia0 = st.session_state['clima_semana'][0]
     row2 = st.columns(2)
@@ -114,3 +124,12 @@ if st.session_state.pesquisa_feita == True:
             {dia['temp_min']}° | {dia['temp_max']}°
           </p>
         """, True)
+
+# 2° Linha | Tratamento de Erros:
+if st.session_state.pesquisa_feita == True and not res['success']:
+  with st.container(key="erro", border=True):
+    st.header('Localização Não Encontrada')
+    st.markdown('''
+      :man_shrugging: A localização que você inseriu não foi encontrada. <br />
+      :mag: Por favor, certifique-se de ter digitado os dados corretamente.
+    ''', True)
