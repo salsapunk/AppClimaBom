@@ -28,6 +28,11 @@ if 'pesquisa_feita' not in st.session_state:
 if 'clima_semana' not in st.session_state:
   st.session_state.clima_semana = []
 
+if 'resposta_api' not in st.session_state:
+  st.session_state.resposta_api = { 
+    'success': None, 'data': None
+  }
+
 with st.form("pesquisa"):
   # Definindo linhas da aplicação:
   row1 = st.columns([3, 2.5, 1], vertical_alignment='bottom')
@@ -40,16 +45,14 @@ with st.form("pesquisa"):
     estado = st.text_input("Estado", placeholder="Ex.: São Paulo")
 
   with row1[2]:
-    res = None
     pesquisar = st.form_submit_button('Buscar')
 
     if pesquisar:
-      res = pesquisarCidade()
+      st.session_state.resposta_api = pesquisarCidade()
       st.session_state.pesquisa_feita = True
 
-      if res['success']:
-        semana = res['data'].clima_dia
-        medida = res['data'].medida
+      if st.session_state.resposta_api['success']:
+        semana = st.session_state.resposta_api['data'].clima_dia
         st.session_state.clima_semana = []
 
         for dia in semana:
@@ -66,7 +69,10 @@ with st.form("pesquisa"):
           st.session_state.clima_semana.append(info_dia)
 
 # 2° Linha | Resultados:
-if st.session_state.pesquisa_feita == True and res['success']:
+if (
+  st.session_state.pesquisa_feita == True 
+  and st.session_state.resposta_api['success']
+):
   with st.container(key="resultados_dia_atual", border=True):
     clima_dia0 = st.session_state['clima_semana'][0]
     row2 = st.columns(2)
@@ -126,7 +132,10 @@ if st.session_state.pesquisa_feita == True and res['success']:
         """, True)
 
 # 2° Linha | Tratamento de Erros:
-if st.session_state.pesquisa_feita == True and not res['success']:
+if (
+  st.session_state.pesquisa_feita == True 
+  and not st.session_state.resposta_api['success']
+):
   with st.container(key="erro", border=True):
     st.header('Localização Não Encontrada')
     st.markdown('''
