@@ -49,6 +49,12 @@ class Clima_localidade:
                         self.clima_dia[i]["Temperatura"] = self.c_para_k(
                             self.clima_dia[i]["Temperatura"]
                         )
+                        self.clima_dia[i]["Temperatura_min"] = self.c_para_k(
+                            self.clima_dia[i]["Temperatura_min"]
+                        )
+                        self.clima_dia[i]["Temperatura_max"] = self.c_para_k(
+                            self.clima_dia[i]["Temperatura_max"]
+                        )
                         self.clima_dia[i]["Sensação térmica"] = self.c_para_k(
                             self.clima_dia[i]["Sensação térmica"]
                         )
@@ -56,6 +62,12 @@ class Clima_localidade:
                     for i in range(7):
                         self.clima_dia[i]["Temperatura"] = self.c_para_f(
                             self.clima_dia[i]["Temperatura"]
+                        )
+                        self.clima_dia[i]["Temperatura_min"] = self.c_para_f(
+                            self.clima_dia[i]["Temperatura_min"]
+                        )
+                        self.clima_dia[i]["Temperatura_max"] = self.c_para_f(
+                            self.clima_dia[i]["Temperatura_max"]
                         )
                         self.clima_dia[i]["Sensação térmica"] = self.c_para_f(
                             self.clima_dia[i]["Sensação térmica"]
@@ -67,6 +79,12 @@ class Clima_localidade:
                         self.clima_dia[i]["Temperatura"] = self.f_para_c(
                             self.clima_dia[i]["Temperatura"]
                         )
+                        self.clima_dia[i]["Temperatura_min"] = self.f_para_c(
+                            self.clima_dia[i]["Temperatura_min"]
+                        )
+                        self.clima_dia[i]["Temperatura_max"] = self.f_para_c(
+                            self.clima_dia[i]["Temperatura_max"]
+                        )
                         self.clima_dia[i]["Sensação térmica"] = self.f_para_c(
                             self.clima_dia[i]["Sensação térmica"]
                         )
@@ -74,6 +92,12 @@ class Clima_localidade:
                     for i in range(7):
                         self.clima_dia[i]["Temperatura"] = self.f_para_k(
                             self.clima_dia[i]["Temperatura"]
+                        )
+                        self.clima_dia[i]["Temperatura_min"] = self.f_para_k(
+                            self.clima_dia[i]["Temperatura_min"]
+                        )
+                        self.clima_dia[i]["Temperatura_max"] = self.f_para_k(
+                            self.clima_dia[i]["Temperatura_max"]
                         )
                         self.clima_dia[i]["Sensação térmica"] = self.f_para_k(
                             self.clima_dia[i]["Sensação térmica"]
@@ -85,6 +109,12 @@ class Clima_localidade:
                         self.clima_dia[i]["Temperatura"] = self.k_para_c(
                             self.clima_dia[i]["Temperatura"]
                         )
+                        self.clima_dia[i]["Temperatura_min"] = self.k_para_c(
+                            self.clima_dia[i]["Temperatura_min"]
+                        )
+                        self.clima_dia[i]["Temperatura_max"] = self.k_para_c(
+                            self.clima_dia[i]["Temperatura_max"]
+                        )
                         self.clima_dia[i]["Sensação térmica"] = self.k_para_c(
                             self.clima_dia[i]["Sensação térmica"]
                         )
@@ -92,6 +122,12 @@ class Clima_localidade:
                     for i in range(7):
                         self.clima_dia[i]["Temperatura"] = self.k_para_f(
                             self.clima_dia[i]["Temperatura"]
+                        )
+                        self.clima_dia[i]["Temperatura_min"] = self.k_para_f(
+                            self.clima_dia[i]["Temperatura_min"]
+                        )
+                        self.clima_dia[i]["Temperatura_max"] = self.k_para_f(
+                            self.clima_dia[i]["Temperatura_max"]
                         )
                         self.clima_dia[i]["Sensação térmica"] = self.k_para_f(
                             self.clima_dia[i]["Sensação térmica"]
