@@ -19,40 +19,41 @@ if 'pesquisa_feita' not in st.session_state:
 if 'clima_semana' not in st.session_state:
   st.session_state.clima_semana = []
 
-# Definindo linhas da aplicação:
-row1 = st.columns([3, 2.5, 1], vertical_alignment='bottom')
+with st.form("pesquisa"):
+  # Definindo linhas da aplicação:
+  row1 = st.columns([3, 2.5, 1], vertical_alignment='bottom')
 
-# 1° Linha | Barras de pesquisa:
-with row1[0]:
-  cidade = st.text_input("Cidade", placeholder="Ex.: Guarulhos")
+  # 1° Linha | Barras de pesquisa:
+  with row1[0]:
+    cidade = st.text_input("Cidade", placeholder="Ex.: Guarulhos")
 
-with row1[1]:
-  estado = st.text_input("Estado", placeholder="Ex.: São Paulo")
+  with row1[1]:
+    estado = st.text_input("Estado", placeholder="Ex.: São Paulo")
 
-with row1[2]:
-  res = None
-  pesquisar = st.button('Buscar')
+  with row1[2]:
+    res = None
+    pesquisar = st.form_submit_button('Buscar')
 
-  if pesquisar:
-    res = pesquisarCidade()
-    semana = res.clima_dia
-    medida = res.medida
+    if pesquisar:
+      res = pesquisarCidade()
+      semana = res.clima_dia
+      medida = res.medida
 
-    st.session_state.clima_semana = []
-    for dia in semana:
-      info_dia = {
-        'temp': dia['Temperatura'],
-        'temp_min': dia['Temperatura_min'],
-        'temp_max': dia['Temperatura_max'],
-        'sensacao': dia["Sensação térmica"],
-        'umidade': dia["Humidade"],
-        'vento_velo': dia["Velocidade do vento"],
-        'precipitacao': dia["Precipitação"], # Não utilizada no momento
-        'vento_dir': "N/A"
-      }
-      st.session_state.clima_semana.append(info_dia)
-    
-    st.session_state.pesquisa_feita = True
+      st.session_state.clima_semana = []
+      for dia in semana:
+        info_dia = {
+          'temp': dia['Temperatura'],
+          'temp_min': dia['Temperatura_min'],
+          'temp_max': dia['Temperatura_max'],
+          'sensacao': dia["Sensação térmica"],
+          'umidade': dia["Humidade"],
+          'vento_velo': dia["Velocidade do vento"],
+          'precipitacao': dia["Precipitação"], # Não utilizada no momento
+          'vento_dir': "N/A"
+        }
+        st.session_state.clima_semana.append(info_dia)
+      
+      st.session_state.pesquisa_feita = True
 
 # 2° Linha | Resultados:
 if st.session_state.pesquisa_feita == True:
