@@ -68,17 +68,50 @@ with st.form("pesquisa"):
           }
           st.session_state.clima_semana.append(info_dia)
 
+def alterarMedida():
+  numMedidaAtual = st.session_state.select_unidade_medida 
+  medidaAtual: int # 0 = Celsius, 1 = Fahrenheit, 2 = Kelvin
+  match numMedidaAtual:
+    case 0:
+      medidaAtual = 'Celsius'
+    case 1:
+      medidaAtual = 'Fahrenheit'
+    case 2:
+      medidaAtual = 'Kelvin'
+    case _:
+      medidaAtual = 'Celsius'
+
+  # Alteração:
+  st.session_state.resposta_api['data'].converter_temp(medidaAtual)
+  st.session_state.resposta_api['data'].medida = medidaAtual
+
 # 2° Linha | Resultados:
 if (
   st.session_state.pesquisa_feita == True 
   and st.session_state.resposta_api['success']
 ):
+  mapa_abv_medidas = {
+    0: '°C',
+    1: '°F',
+    2: '°K'
+  }
+  selection = st.segmented_control(
+    "Unidade de medida",
+    options=mapa_abv_medidas.keys(),
+    format_func=lambda option: mapa_abv_medidas[option],
+    key="select_unidade_medida",
+    selection_mode="single",
+    default=0,
+    on_change=alterarMedida
+  )
+  abv_medida = '°C' if selection is None else mapa_abv_medidas[selection]
+  
   with st.container(key="resultados_dia_atual", border=True):
     clima_dia0 = st.session_state['clima_semana'][0]
     row2 = st.columns(2)
 
     with row2[0]:
-      st.header(f'{clima_dia0['temp']} °C')
+      st.header(f'{clima_dia0['temp']} {abv_medida}')
       st.markdown(f'''
         **Parcial, nublado** <br/>
         **MIN:** {clima_dia0['temp_min']}° | 
