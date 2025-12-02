@@ -19,25 +19,32 @@ def pesquisarCidade():
     }
 
 def atualizarClimaSemana():
-  semana = st.session_state.resposta_api['data'].clima_dia
+  # Atributos de dados da classe ClimaLocalidade:
+  semana = st.session_state.clima_localidade['data'].clima_dia
+  medida = st.session_state.clima_localidade['data'].medida
   st.session_state.clima_semana = []
+  
+  # Formatações:
+  fTempCompleto = "{:.0f} °{}"
+  fTempSimples = "{:.0f}°"
 
   for dia in semana:
     info_dia = {
-      'temp': dia['Temperatura'],
-      'temp_min': dia['Temperatura_min'],
-      'temp_max': dia['Temperatura_max'],
-      'sensacao': dia["Sensação térmica"],
+      'temp': fTempCompleto.format(dia['Temperatura'], medida[:1]),
+      'temp_min': fTempSimples.format(dia['Temperatura_min']),
+      'temp_max': fTempSimples.format(dia['Temperatura_max']),
+      'sensacao': fTempSimples.format(dia["Sensação térmica"]),
       'umidade': dia["Humidade"],
       'vento_velo': dia["Velocidade do vento"],
       'precipitacao': dia["Precipitação"], # Não utilizada no momento
-      'vento_dir': "N/A"
     }
     st.session_state.clima_semana.append(info_dia)
 
 def alterarMedida():
   numMedidaAtual = st.session_state.select_unidade_medida 
-  medidaAtual: int # 0 = Celsius, 1 = Fahrenheit, 2 = Kelvin
+  st.session_state.num_unidade_medida = numMedidaAtual
+
+  medidaAtual: str
   match numMedidaAtual:
     case 0:
       medidaAtual = 'Celsius'
@@ -48,13 +55,9 @@ def alterarMedida():
     case _:
       medidaAtual = 'Celsius'
 
-  # Alteração:
-  st.session_state.resposta_api['data'].converter_temp(medidaAtual)
-  st.session_state.resposta_api['data'].medida = medidaAtual
+  st.session_state.clima_localidade['data'].converter_temp(medidaAtual)
+  st.session_state.clima_localidade['data'].medida = medidaAtual
   atualizarClimaSemana()
-
-# Título da aplicação
-st.title("AppClimaBom")
 
 # Definindo variáveis de estado de sessão
 if 'pesquisa_feita' not in st.session_state:
@@ -63,10 +66,17 @@ if 'pesquisa_feita' not in st.session_state:
 if 'clima_semana' not in st.session_state:
   st.session_state.clima_semana = []
 
-if 'resposta_api' not in st.session_state:
-  st.session_state.resposta_api = { 
+if 'clima_localidade' not in st.session_state:
+  st.session_state.clima_localidade = { 
     'success': None, 'data': None
   }
+
+if 'num_unidade_medida' not in st.session_state:
+  # 0 = Celsius, 1 = Fahrenheit, 2 = Kelvin
+  st.session_state.num_unidade_medida = 0
+
+# Título da aplicação
+st.title("AppClimaBom")
 
 with st.form("pesquisa"):
   # Definindo linhas da aplicação:
@@ -83,44 +93,43 @@ with st.form("pesquisa"):
     pesquisar = st.form_submit_button('Buscar')
 
     if pesquisar:
-      st.session_state.resposta_api = pesquisarCidade()
+      st.session_state.clima_localidade = pesquisarCidade()
       st.session_state.pesquisa_feita = True
 
-      if st.session_state.resposta_api['success']:
+      if st.session_state.clima_localidade['success']:
         atualizarClimaSemana()
 
 # 2° Linha | Resultados:
 if (
   st.session_state.pesquisa_feita == True 
-  and st.session_state.resposta_api['success']
+  and st.session_state.clima_localidade['success']
 ):
   mapa_abv_medidas = {
     0: '°C',
     1: '°F',
     2: '°K'
   }
-  selection = st.segmented_control(
+  select_unidade_medida = st.segmented_control(
     "Unidade de medida",
     options=mapa_abv_medidas.keys(),
     format_func=lambda option: mapa_abv_medidas[option],
     key="select_unidade_medida",
     selection_mode="single",
-    default=0,
+    default=st.session_state.num_unidade_medida,
     on_change=alterarMedida
   )
-  abv_medida = '°C' if selection is None else mapa_abv_medidas[selection]
   
   with st.container(key="resultados_dia_atual", border=True):
     clima_dia0 = st.session_state['clima_semana'][0]
     row2 = st.columns(2)
 
     with row2[0]:
-      st.header(f'{clima_dia0['temp']} {abv_medida}')
+      st.header(f'{clima_dia0['temp']}')
       st.markdown(f'''
         **Parcial, nublado** <br/>
-        **MIN:** {clima_dia0['temp_min']}° | 
-        **MAX:** {clima_dia0['temp_max']}° <br/>
-        Sensação Térmica de {clima_dia0['sensacao']}°
+        **MIN:** {clima_dia0['temp_min']} | 
+        **MAX:** {clima_dia0['temp_max']} <br/>
+        Sensação Térmica de {clima_dia0['sensacao']}
       ''', True)
     
     with row2[1]:
@@ -131,7 +140,6 @@ if (
         st.markdown(f'''
           #### Vento:
           {clima_dia0['vento_velo']} m/s <br/>
-          Sentido {clima_dia0['vento_dir']}
       ''', True)
         
       with subrow[1]:
@@ -163,15 +171,15 @@ if (
       with col2:
         st.markdown(f"""
           <p style='text-align: right;'>
-            <strong style='font-size: 20px;'>{dia['temp']} °C</strong> <br/>
-            {dia['temp_min']}° | {dia['temp_max']}°
+            <strong style='font-size: 20px;'>{dia['temp']}</strong> <br/>
+            {dia['temp_min']} | {dia['temp_max']}
           </p>
         """, True)
 
 # 2° Linha | Tratamento de Erros:
 if (
   st.session_state.pesquisa_feita == True 
-  and not st.session_state.resposta_api['success']
+  and not st.session_state.clima_localidade['success']
 ):
   with st.container(key="erro", border=True):
     st.header('Localização Não Encontrada')
