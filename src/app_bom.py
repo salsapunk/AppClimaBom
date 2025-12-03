@@ -20,7 +20,8 @@ def pesquisarCidade():
 
 def atualizarClimaSemana():
   # Atributos de dados da classe ClimaLocalidade:
-  semana = st.session_state.clima_localidade['data'].clima_dia
+  semana = st.session_state.clima_localidade['data'].clima_semana
+  dia_atual = st.session_state.clima_localidade['data'].clima_horas
   medida = st.session_state.clima_localidade['data'].medida
   st.session_state.clima_semana = []
   
@@ -30,13 +31,13 @@ def atualizarClimaSemana():
 
   for dia in semana:
     info_dia = {
-      'temp': fTempCompleto.format(dia['Temperatura'], medida[:1]),
-      'temp_min': fTempSimples.format(dia['Temperatura_min']),
-      'temp_max': fTempSimples.format(dia['Temperatura_max']),
-      'sensacao': fTempSimples.format(dia["Sensação térmica"]),
-      'umidade': dia["Humidade"],
-      'vento_velo': dia["Velocidade do vento"],
-      'precipitacao': dia["Precipitação"], # Não utilizada no momento
+      'temp': fTempCompleto.format(dia['temperatura'], medida[:1]),
+      'temp_min': fTempSimples.format(dia['temperatura_min']),
+      'temp_max': fTempSimples.format(dia['temperatura_max']),
+      'sensacao': fTempSimples.format(dia['sensacao_termica']),
+      'umidade': dia['humidade'],
+      'vento_velo': dia['velocidade_do_vento'],
+      'precipitacao': dia['precipitacao'], # Não utilizada no momento
     }
     st.session_state.clima_semana.append(info_dia)
 
@@ -65,6 +66,9 @@ if 'pesquisa_feita' not in st.session_state:
 
 if 'clima_semana' not in st.session_state:
   st.session_state.clima_semana = []
+
+if 'clima_dia' not in st.session_state:
+  st.session_state.clima_dia = []
 
 if 'clima_localidade' not in st.session_state:
   st.session_state.clima_localidade = { 
