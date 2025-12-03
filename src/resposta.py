@@ -70,7 +70,7 @@ class Resposta:
         # separando os alertas
         alerta = []
         if self.alerts["current"] is None:
-            pass
+            alerta = None
         else:
             alerta.append(
                 {
@@ -125,12 +125,12 @@ class Resposta:
 
 
 # Exemplo de utilização:
-# r = Resposta("Maceió", "AL")
-# r.requisicao()
+r = Resposta("Maceió", "AL")
+r.requisicao()
 # print(r.d_clima.clima_semana)
 # print()
 # print(r.d_clima.clima_horas)
 # print()
-# print(r.d_clima.alertas)
+print(r.d_clima.alertas)
 
 # print(r.d_clima.clima_horas[0][3])
