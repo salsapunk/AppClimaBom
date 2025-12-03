@@ -65,6 +65,11 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 - A busca retorna resultados válidos;
 - O sistema exibe alerta quando há perigo climático.
 
+## Contribuições:
+
+Para fazer sua contruibuição para o projeto do AppClimaBom é bem fácil:
+Primeiro faça um fork do projeto na sua conta do github. Após isso faça as suas alterações ou adições em seu fork. Então, nesse repositório oficial, faça um pull request para que sua contribuição seja validade e, caso positivo, faça parte do projeto!😊
+
 [**Trello**](https://trello.com/invite/b/69035d59701d4b56c044175d/ATTI4570caebf70c43845a78070ffe26c48f07B73633/quadro-principal)
 
 ### PO: Lígia Andreza
