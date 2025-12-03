@@ -109,15 +109,6 @@ if (
     1: '°F',
     2: '°K'
   }
-  select_unidade_medida = st.segmented_control(
-    "Unidade de medida",
-    options=mapa_abv_medidas.keys(),
-    format_func=lambda option: mapa_abv_medidas[option],
-    key="select_unidade_medida",
-    selection_mode="single",
-    default=st.session_state.num_unidade_medida,
-    on_change=alterarMedida
-  )
   
   with st.container(key="resultados_dia_atual", border=True):
     clima_dia0 = st.session_state['clima_semana'][0]
@@ -126,7 +117,6 @@ if (
     with row2[0]:
       st.header(f'{clima_dia0['temp']}')
       st.markdown(f'''
-        **Parcial, nublado** <br/>
         **MIN:** {clima_dia0['temp_min']} | 
         **MAX:** {clima_dia0['temp_max']} <br/>
         Sensação Térmica de {clima_dia0['sensacao']}
@@ -148,33 +138,49 @@ if (
           {clima_dia0['umidade']}%
         ''')
 
-  for idx_dia, dia in enumerate(st.session_state.clima_semana):
-    with st.container(key=f"resultados_dia_{idx_dia}", border=True):
-      col1, col2 = st.columns(2, vertical_alignment='center')
-      
-      dias_semana = [
-        'Segunda-feira', 'Terça-feira', 'Quarta-feira', 
-        'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo',
-      ] # Ordem baseada na semana de trabalho americana; Semana começa na Segunda-feira.
-      idx_hoje = datetime.date.today().weekday()
-      dias_ordenados = dias_semana[idx_hoje:] + dias_semana[:idx_hoje]
+  select_unidade_medida = st.segmented_control(
+    "Unidade de medida",
+    options=mapa_abv_medidas.keys(),
+    format_func=lambda option: mapa_abv_medidas[option],
+    key="select_unidade_medida",
+    selection_mode="single",
+    default=st.session_state.num_unidade_medida,
+    on_change=alterarMedida
+  )
 
-      with col1:
-        dia_exibido = dias_ordenados[(idx_dia + 1) % 7 if idx_dia >= 7 else idx_dia]
-        if idx_dia == 0: dia_exibido = "Hoje"
+  tab1, tab2 = st.tabs(["Semana", "Dia Atual"])
+
+  with tab1:
+    for idx_dia, dia in enumerate(st.session_state.clima_semana):
+      with st.container(key=f"resultados_dia_{idx_dia}", border=True):
+        col1, col2 = st.columns(2, vertical_alignment='center')
         
-        st.markdown(f"""
-          <h4>{dia_exibido}:</h4>
-          <p>Dia {idx_dia + 1}</p> <!-- No futuro substituir por data (ex.: 1 de abril) -->
-        """, True)
-      
-      with col2:
-        st.markdown(f"""
-          <p style='text-align: right;'>
-            <strong style='font-size: 20px;'>{dia['temp']}</strong> <br/>
-            {dia['temp_min']} | {dia['temp_max']}
-          </p>
-        """, True)
+        dias_semana = [
+          'Segunda-feira', 'Terça-feira', 'Quarta-feira', 
+          'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo',
+        ] # Ordem baseada na semana de trabalho americana; Semana começa na Segunda-feira.
+        idx_hoje = datetime.date.today().weekday()
+        dias_ordenados = dias_semana[idx_hoje:] + dias_semana[:idx_hoje]
+
+        with col1:
+          dia_exibido = dias_ordenados[(idx_dia + 1) % 7 if idx_dia >= 7 else idx_dia]
+          if idx_dia == 0: dia_exibido = "Hoje"
+          
+          st.markdown(f"""
+            <h4>{dia_exibido}:</h4>
+            <p>Dia {idx_dia + 1}</p> <!-- No futuro substituir por data (ex.: 1 de abril) -->
+          """, True)
+        
+        with col2:
+          st.markdown(f"""
+            <p style='text-align: right;'>
+              <strong style='font-size: 20px;'>{dia['temp']}</strong> <br/>
+              {dia['temp_min']} | {dia['temp_max']}
+            </p>
+          """, True)
+  
+  with tab2:
+    st.write('Eu sou uma tab!')
 
 # 2° Linha | Tratamento de Erros:
 if (
