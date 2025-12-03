@@ -23,12 +23,16 @@ def atualizarClimaSemana():
   semana = st.session_state.clima_localidade['data'].clima_semana
   dia_atual = st.session_state.clima_localidade['data'].clima_horas
   medida = st.session_state.clima_localidade['data'].medida
+  
+  # Redefinindo estado:
   st.session_state.clima_semana = []
+  st.session_state.clima_dia = []
   
   # Formatações:
   fTempCompleto = "{:.0f} °{}"
   fTempSimples = "{:.0f}°"
 
+  # Alterando estado:
   for dia in semana:
     info_dia = {
       'temp': fTempCompleto.format(dia['temperatura'], medida[:1]),
@@ -40,6 +44,11 @@ def atualizarClimaSemana():
       'precipitacao': dia['precipitacao'], # Não utilizada no momento
     }
     st.session_state.clima_semana.append(info_dia)
+
+  for hora in dia_atual[0]:
+    try: hora['hora'] = hora['hora'].split('T')[1]
+    except: hora['hora'] = hora['hora']
+    st.session_state.clima_dia.append(hora)
 
 def alterarMedida():
   numMedidaAtual = st.session_state.select_unidade_medida 
@@ -184,7 +193,12 @@ if (
           """, True)
   
   with tab2:
-    st.write('Eu sou uma tab!')
+    st.line_chart(
+      st.session_state.clima_dia, 
+      x='hora', 
+      y=['temperatura', 'sensacao_termica'], 
+      x_label='Hora', 
+      y_label=f'Temperaturas (°{st.session_state.clima_localidade['data'].medida[:1]})')
 
 # 2° Linha | Tratamento de Erros:
 if (
