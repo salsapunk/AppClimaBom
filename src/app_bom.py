@@ -125,19 +125,26 @@ if st.session_state.pesquisa_feita == True:
             {dia['temp_min']}° | {dia['temp_max']}°
           </p>
         """, True)
+        
 
   with st.container():
-    def exibindo_alertas():
-      msg= st.toast("Buscando alertas...")
-      sleep(1)
-      msg.toast("Evento:")
-      sleep(2)
-      msg.toast("Começo e fim do alerta:")
-      sleep(1)
-      msg.toast("Orgão emissor:")
-      sleep(2)
-      msg.toast("Severidade:")
-      sleep(2)
-      msg.toast("Descrição:")
+    def exibindo_alertas(alertas):
+      if alertas.alertas is not None:
+        msg= st.toast("Buscando alertas...")
+        sleep(1)
+        msg.toast(f"Evento: {alertas.alertas["evento"]}")
+        sleep(2)
+        msg.toast(f"Começo do alerta: {alertas.alertas["comeco"]}")
+        sleep(1)
+        msg.toast(f"Fim do alerta: {alertas.alertas["fim"]}")
+        sleep(2)
+        msg.toast(f"Orgão emissor: {alertas.alertas["emissor"]}")
+        sleep(2)
+        msg.toast(f"Severidade: {alertas.alertas["severidade"]}")
+        sleep(2)
+        msg.toast(f"Descrição: {alertas.alertas["descricao"]}")
+        exibindo_alertas(alertas)
+      else:
+        msg.toast("Não há alertas na sua região.")
     if st.button("Procurar alertas"):
-      exibindo_alertas()
+      exibindo_alertas(res.alertas)
