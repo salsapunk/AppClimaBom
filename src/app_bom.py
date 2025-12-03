@@ -1,7 +1,7 @@
 import datetime
 import streamlit as st
 from resposta import Resposta
-
+from time import sleep
 
 with open("src/style.css") as f:
   st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
@@ -125,3 +125,19 @@ if st.session_state.pesquisa_feita == True:
             {dia['temp_min']}° | {dia['temp_max']}°
           </p>
         """, True)
+
+  with st.container():
+    def exibindo_alertas():
+      msg= st.toast("Buscando alertas...")
+      sleep(1)
+      msg.toast("Evento:")
+      sleep(2)
+      msg.toast("Começo e fim do alerta:")
+      sleep(1)
+      msg.toast("Orgão emissor:")
+      sleep(2)
+      msg.toast("Severidade:")
+      sleep(2)
+      msg.toast("Descrição:")
+    if st.button("Procurar alertas"):
+      exibindo_alertas()
