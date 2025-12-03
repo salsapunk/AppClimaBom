@@ -1,23 +1,13 @@
 class Clima_localidade:
     def __init__(
         self,
-        clima_dia1,
-        clima_dia2,
-        clima_dia3,
-        clima_dia4,
-        clima_dia5,
-        clima_dia6,
-        clima_dia7,
+        clima_semana,
+        clima_horas,
+        alertas,
     ):
-        self.clima_dia = [
-            clima_dia1,
-            clima_dia2,
-            clima_dia3,
-            clima_dia4,
-            clima_dia5,
-            clima_dia6,
-            clima_dia7,
-        ]
+        self.clima_semana = clima_semana
+        self.clima_horas = clima_horas
+        self.alertas = alertas
         self.medida = "Celsius"
 
     def c_para_k(self, c):
