@@ -13,3 +13,7 @@
 <img width="399" height="791" alt="Captura de tela 2025-11-24 095334" src="https://github.com/user-attachments/assets/d54659fc-8a87-4ee9-a402-636246aac45c" />
 <img width="399" height="696" alt="Captura de tela 2025-11-24 095351" src="https://github.com/user-attachments/assets/83d2a208-5d9b-4e98-9246-9fccfba47a73" />
 <img width="1431" height="840" alt="Captura de tela 2025-11-24 100603" src="https://github.com/user-attachments/assets/e634fe90-c654-436d-9419-1bc09a5c0c0b" />
+
+ ## SPRINT  ENTREGA FINAL:
+![se2](https://github.com/user-attachments/assets/f118b4d2-ae28-48c4-af86-aea8600af9ba)
+![Se](https://github.com/user-attachments/assets/c4f930e9-249f-42ed-ac63-90eaef7eda23)
