@@ -27,6 +27,7 @@ def atualizarClimaSemana():
   # Atributos de dados da classe ClimaLocalidade:
   semana = st.session_state.clima_localidade['data'].clima_semana
   dia_atual = st.session_state.clima_localidade['data'].clima_horas
+  alertas = st.session_state.clima_localidade['data'].alertas
   medida = st.session_state.clima_localidade['data'].medida
   
   # Redefinindo estado:
@@ -54,6 +55,8 @@ def atualizarClimaSemana():
     try: hora['hora'] = hora['hora'].split('T')[1]
     except: hora['hora'] = hora['hora']
     st.session_state.clima_dia.append(hora)
+
+  st.session_state.alertas = alertas
 
 def alterarMedida():
   numMedidaAtual = st.session_state.select_unidade_medida 
@@ -83,6 +86,9 @@ if 'clima_semana' not in st.session_state:
 
 if 'clima_dia' not in st.session_state:
   st.session_state.clima_dia = []
+
+if 'alertas' not in st.session_state:
+  st.session_state.alertas = []
 
 if 'clima_localidade' not in st.session_state:
   st.session_state.clima_localidade = { 
@@ -156,15 +162,40 @@ if (
           {clima_dia0['umidade']}%
         ''')
 
-  select_unidade_medida = st.segmented_control(
-    "Unidade de medida",
-    options=mapa_abv_medidas.keys(),
-    format_func=lambda option: mapa_abv_medidas[option],
-    key="select_unidade_medida",
-    selection_mode="single",
-    default=st.session_state.num_unidade_medida,
-    on_change=alterarMedida
-  )
+  row1, row2 = st.columns(2, vertical_alignment='center')
+
+  with row1:
+    select_unidade_medida = st.segmented_control(
+      "Unidade de medida",
+      options=mapa_abv_medidas.keys(),
+      format_func=lambda option: mapa_abv_medidas[option],
+      key="select_unidade_medida",
+      selection_mode="single",
+      default=st.session_state.num_unidade_medida,
+      on_change=alterarMedida
+    )
+
+  with row2:
+    def exibindo_alertas(alertas):
+      if alertas is not None:
+        st.toast("Buscando alertas...")
+        sleep(1)
+        st.toast(f"Evento: {alertas["evento"]}")
+        sleep(2)
+        st.toast(f"Começo do alerta: {alertas["comeco"]}")
+        sleep(1)
+        st.toast(f"Fim do alerta: {alertas["fim"]}")
+        sleep(2)
+        st.toast(f"Orgão emissor: {alertas["emissor"]}")
+        sleep(2)
+        st.toast(f"Severidade: {alertas["severidade"]}")
+        sleep(2)
+        st.toast(f"Descrição: {alertas["descricao"]}")
+        exibindo_alertas(alertas)
+      else:
+        st.toast("Não há alertas na sua região.")
+    if st.button("Procurar alertas"):
+      exibindo_alertas(st.session_state.alertas)
 
   tab1, tab2 = st.tabs(["Semana", "Dia Atual"])
 
@@ -216,25 +247,3 @@ if (
       :man_shrugging: A localização que você inseriu não foi encontrada. <br />
       :mag: Por favor, certifique-se de ter digitado os dados corretamente.
     ''', True)
-
-with st.container():
-  def exibindo_alertas(alertas):
-    if alertas.alertas is not None:
-      msg= st.toast("Buscando alertas...")
-      sleep(1)
-      msg.toast(f"Evento: {alertas.alertas["evento"]}")
-      sleep(2)
-      msg.toast(f"Começo do alerta: {alertas.alertas["comeco"]}")
-      sleep(1)
-      msg.toast(f"Fim do alerta: {alertas.alertas["fim"]}")
-      sleep(2)
-      msg.toast(f"Orgão emissor: {alertas.alertas["emissor"]}")
-      sleep(2)
-      msg.toast(f"Severidade: {alertas.alertas["severidade"]}")
-      sleep(2)
-      msg.toast(f"Descrição: {alertas.alertas["descricao"]}")
-      exibindo_alertas(alertas)
-    else:
-      msg.toast("Não há alertas na sua região.")
-  if st.button("Procurar alertas"):
-    exibindo_alertas(res.alertas)
