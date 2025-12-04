@@ -104,7 +104,7 @@ st.title("AppClimaBom")
 
 with st.form("pesquisa"):
   # Definindo linhas da aplicação:
-  row1 = st.columns([3, 2.5, 1], vertical_alignment='bottom')
+  row1 = st.columns([2.9, 2.4, 1.2], vertical_alignment='bottom')
 
   # 1° Linha | Barras de pesquisa:
   with row1[0]:
