@@ -1,6 +1,11 @@
 import datetime
 import streamlit as st
 from resposta import Resposta
+from time import sleep
+
+# Customizações visuais da interface:
+with open("src/style.css") as f:
+  st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Funções:
 def pesquisarCidade():
@@ -211,3 +216,25 @@ if (
       :man_shrugging: A localização que você inseriu não foi encontrada. <br />
       :mag: Por favor, certifique-se de ter digitado os dados corretamente.
     ''', True)
+
+with st.container():
+  def exibindo_alertas(alertas):
+    if alertas.alertas is not None:
+      msg= st.toast("Buscando alertas...")
+      sleep(1)
+      msg.toast(f"Evento: {alertas.alertas["evento"]}")
+      sleep(2)
+      msg.toast(f"Começo do alerta: {alertas.alertas["comeco"]}")
+      sleep(1)
+      msg.toast(f"Fim do alerta: {alertas.alertas["fim"]}")
+      sleep(2)
+      msg.toast(f"Orgão emissor: {alertas.alertas["emissor"]}")
+      sleep(2)
+      msg.toast(f"Severidade: {alertas.alertas["severidade"]}")
+      sleep(2)
+      msg.toast(f"Descrição: {alertas.alertas["descricao"]}")
+      exibindo_alertas(alertas)
+    else:
+      msg.toast("Não há alertas na sua região.")
+  if st.button("Procurar alertas"):
+    exibindo_alertas(res.alertas)

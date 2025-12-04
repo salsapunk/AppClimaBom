@@ -1,0 +1,36 @@
+div[data-testid="stVerticalBlock"] {
+    background: linear-gradient(to right, #1F6DC0, #4789d0, #79b5f5  );
+    padding: 11px;
+    border-radius: 15px;
+    box-shadow: 1px 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: auto;
+}
+
+
+html, body, [data-testid="stAppViewContainer"] {
+    background: linear-gradient(to right, #1F6DC0, #4789d0, #79b5f5 );
+    
+}
+
+div.stButton > button {
+    background-color: black;
+    color: white;
+    padding: 9px;
+    border-color: white;
+    border-radius: 12px;
+    border-width: 3px;
+
+
+}
+
+[data-testid="stHeader"] {
+    background: linear-gradient(to right, #1F6DC0, #4789d0, #79b5f5);
+}
+
+.stTextInput input {
+    background: black;
+    color: white;
+
+}
+
+
