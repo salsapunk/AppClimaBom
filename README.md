@@ -59,6 +59,8 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 
 **Ferramentas de design**: [Draw.io](http://draw.io/), Figma
 
+**Ferramentas de estilização**: CSS
+
 ### 7. Critérios de Aceitação
 
 - O app exibe o clima atual em até 3 segundos;
