@@ -24,7 +24,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 | --- | --- | --- | --- |
 | **RF01** | O sistema deve permitir buscar o clima por cidade. | Alta | Concluído |
 | **RF02** | O sistema deve exibir dados como temperatura, umidade, vento e sensação térmica. | Alta | Concluído |
-| **RF03** | O sistema deve emitir alertas meteorológicos. | Alta | A fazer |
+| **RF03** | O sistema deve emitir alertas meteorológicos. | Alta | Concluído |
 | **RF04** | O sistema deve apresentar previsão para até 5 dias. | Média | Concluído |
 | **RF05** | O sistema deve permitir alternar entre °C e °F. | Baixa | Concluído |
 
@@ -41,7 +41,7 @@ Este documento descreve os requisitos funcionais e não funcionais do “Aplicat
 
 | Prioridade | Funcionalidade | Tipo | Status |
 | --- | --- | --- | --- |
-| 🟥 Alta | Clima atual, busca por cidade, alertas | RF | Em andamento |
+| 🟥 Alta | Clima atual, busca por cidade, alertas | RF | Concluído |
 | 🟨 Média | Previsão 5 dias | RF/RNF | Concluído |
 | 🟩 Baixa | Escolha °C/°F, histórico | RF | Concluído |
 
